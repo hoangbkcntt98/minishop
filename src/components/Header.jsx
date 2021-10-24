@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import logo from '../assets/images/Logo-2.png'
+import LoginIcon from '@mui/icons-material/Login';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const mainNav = [
     {
@@ -19,7 +21,8 @@ const mainNav = [
     {
         display: "Liên hệ",
         path: "/contact"
-    }
+    },
+
 ]
 
 const Header = () => {
@@ -27,32 +30,37 @@ const Header = () => {
     const { pathname } = useLocation()
     const activeNav = mainNav.findIndex(e => e.path === pathname)
 
-    const headerRef = useRef(null)
-
-    useEffect(() => {
-        window.addEventListener("scroll", () => {
-            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-                headerRef.current.classList.add('shrink')
-            } else {
-                headerRef.current.classList.remove('shrink')
-            }
-        })
-        return () => {
-            window.removeEventListener("scroll")
-        };
-    }, []);
-
     const menuLeft = useRef(null)
 
     const menuToggle = () => menuLeft.current.classList.toggle('active')
 
     return (
-        <div className="header" ref={headerRef}>
+        <div className="header">
+
             <div className="container">
                 <div className="header__logo">
                     <Link to="/">
                         <img src={logo} alt="" />
                     </Link>
+                </div>
+                <div className="row header__information">
+                    <div className="header__information__phone">CSKH:038769993</div>
+                    <div className="header__information__sign">
+                        <div className="header__information__sign__login">
+                            <LoginIcon />
+                        </div>
+                        <div className="header__information__sign__login">
+                            <div><a>Đăng nhập</a></div>
+                        </div>
+                        <div>|</div>
+                        <div className="header__information__sign__login">
+                            <PersonAddIcon />
+                        </div>
+                        <div className="header__information__sign__login">
+                            <div><a>Đăng kí</a></div>
+                        </div>
+                    </div>
+
                 </div>
                 <div className="header__menu">
                     <div className="header__menu__mobile-toggle" onClick={menuToggle}>

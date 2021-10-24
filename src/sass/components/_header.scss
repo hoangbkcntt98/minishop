@@ -1,6 +1,7 @@
+
 .header {
     background-color: $main-bg;
-    position: fixed;
+    // position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -32,13 +33,23 @@
     }
 
     &__logo {
-        @include flex(center, center);
+        @include flex(top, left);
         position: absolute;
         inset: 0;
         pointer-events: none;
 
         img {
             height: 28px;
+        }
+        @include mobile{
+            padding: 1em;
+            width: 100%;
+            @include flex(top,center);
+            img {
+                height: 18px;
+            }
+         
+            text-align: center;
         }
     }
 
@@ -133,6 +144,45 @@
                 display: block;
                 font-size: 2.5rem;
             }
+        }
+    }
+    &__information{
+        // background-color: violet;
+        height: 3em;
+        @include mobile{
+            display: none;
+        }
+        font-size: 1.25rem;
+        padding-left: 4rem;
+        padding-right: 4rem;
+        &__icon{
+            // display: 'flex';
+            align-items: 'center';
+            flex-wrap: 'wrap';
+            padding-top: 1em;
+        }
+        &__phone{
+            padding: 1em;
+            // display: block;
+            width:30%;
+            height: 100%;
+            float: left;
+            text-align: left;
+            // background-color: blue;
+        }
+        &__sign{
+            &__login{
+                // align-items: center;
+                padding-left: 5px;
+                font-size: 15px;
+                float:left;
+            }
+            padding:1em;
+            width: 70%;
+            height: 100%;
+            float: right;
+            @include flex(top,right);
+            // @include flex(right, space-between);
         }
     }
 }
