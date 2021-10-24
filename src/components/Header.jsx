@@ -4,7 +4,15 @@ import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/images/Logo-2.png'
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import { Box } from '@mui/system';
+import FreeSolo from './AutoComplete';
+import Example from './autocomplete/auto';
+import Autocomplete from './autocomplete/AutoComplete';
+import SearchBar from './searchBar';
+import AutoMan from './autocomplete/AutoSuggess';
+import CartButton from './CartButton';
+import CartBadge from './CartBadge';
 const mainNav = [
     {
         display: "Trang chủ",
@@ -38,30 +46,49 @@ const Header = () => {
         <div className="header">
 
             <div className="container">
-                <div className="header__logo">
-                    <Link to="/">
-                        <img src={logo} alt="" />
-                    </Link>
-                </div>
-                <div className="row header__information">
-                    <div className="header__information__phone">CSKH:038769993</div>
+                <div className="header__information">
+                    <div className="header__information__phone">
+                        <div className="header__information__sign__icon">
+                            <LocalPhoneIcon />
+                        </div>
+                        <div className="header__information__sign__text">
+                            CSKH:038769993
+                        </div>
+                    </div>
                     <div className="header__information__sign">
-                        <div className="header__information__sign__login">
+                        <div className="header__information__sign__icon">
                             <LoginIcon />
                         </div>
-                        <div className="header__information__sign__login">
-                            <div><a>Đăng nhập</a></div>
+                        <div className="header__information__sign__text">
+                            <div><a href="#">Đăng nhập</a></div>
                         </div>
-                        <div>|</div>
-                        <div className="header__information__sign__login">
+                        <div className="vertical"></div>
+                        <div className="header__information__sign__icon">
                             <PersonAddIcon />
                         </div>
-                        <div className="header__information__sign__login">
-                            <div><a>Đăng kí</a></div>
+                        <div className="header__information__sign__text">
+                            <div><a href="#">Đăng kí</a></div>
                         </div>
                     </div>
 
                 </div>
+                <div className="header__main">
+                    <div className="header__main__logo">
+                        <Link to="/">
+                            <img src={logo} alt="" />
+                        </Link>
+                    </div>
+                    <div className="header__main__search-bar">
+                        {/* <FreeSolo /> */}
+                        {/* <Autocomplete/> */}
+                        <AutoMan />
+
+
+                    </div>
+                    <div className="header__main__card-button"><CartButton /></div>
+
+                </div>
+                
                 <div className="header__menu">
                     <div className="header__menu__mobile-toggle" onClick={menuToggle}>
                         <i className='bx bx-menu-alt-left'></i>
@@ -84,6 +111,17 @@ const Header = () => {
                             ))
                         }
                     </div>
+                    <div className="header__menu__center">
+                        <Link to="/">
+                            <img src={logo} alt="" />
+                        </Link>
+                    </div>
+                    <div className="header__menu__item header__menu__right__mobile">
+                        <div className="header__menu__item header__menu__right__mobile__item">
+                            <CartBadge />
+                        </div>
+
+                    </div>
                     <div className="header__menu__right">
                         <div className="header__menu__item header__menu__right__item">
                             <i className="bx bx-search"></i>
@@ -97,7 +135,12 @@ const Header = () => {
                             <i className="bx bx-user"></i>
                         </div>
                     </div>
+                    
                 </div>
+                <div className="header__search__mobile">
+                        <AutoMan />
+                    </div>
+
             </div>
         </div>
     )

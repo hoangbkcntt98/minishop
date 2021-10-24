@@ -18,12 +18,12 @@ const Home = () => {
     return (
         <Helmet title="Trang chủ">
             {/* hero slider */}
-            <HeroSlider
+            {/* <HeroSlider
                 data={heroSliderData}
                 control={true}
                 auto={false}
                 timeOut={5000}
-            />
+            /> */}
             {/* end hero slider */}
 
             {/* policy section */}
