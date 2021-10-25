@@ -1,6 +1,8 @@
 .section {
     margin-bottom: 80px;
-
+    // display: block;
+    // z-index: 88;
+    // position: relative;
     & > * ~ * {
         margin-top: 70px;
     }

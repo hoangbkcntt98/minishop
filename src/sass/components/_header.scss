@@ -54,11 +54,22 @@
 
     &__menu {
         @include flex(center, space-between);
-        height: 100%;
+        height: 55px;
+        margin-top: 20px;
+        padding: 0% 10% 0% 10%;
+        background-color: #ed71a3;
+        color: #ffff;
+        @include mobile {
+            background-color: white;
+            color: #ed71a3;
+            margin-top: 1em;
+            margin-bottom: 2em;
+            padding: 0;
+        }
         font-size: 1.5rem;
-
         &__item ~ &__item {
-            margin-left: 39px;
+            margin-left: 10px;
+            font-size: 1em;
 
             @include tablet {
                 margin-left: 20px;
@@ -70,11 +81,52 @@
         }
 
         &__item.active {
-            font-weight: 600;
-            color: $main-color;
-        }
+            font-size: 1.2em;
+            font-weight: 900;
+            background-color: white;
+            > a {
+                color: #ed71a3;
+            }
 
+            @include mobile {
+                background-color: unset;
+                color: #ed71a3;
+            }
+            color: white;
+        }
+        .item-dropdown {
+            
+            font-size: medium;
+            font-weight: 400;
+            display: none;
+            padding: 0px;
+            margin-top: 0px;
+            background-color: #ffff;
+            position: absolute;
+            
+            border: medium;
+            border-radius: 10px;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            
+            z-index: 999;
+            &__catalog{
+                width: 600px;
+                height: 300px;
+                
+            }
+            &__new{
+                width: 200px;
+                position: relative;
+            }
+        }
         &__item:hover {
+            @include mobile {
+                display: none;
+            }
+            .item-dropdown {
+                display: block;
+            }
+            background-color: antiquewhite;
             color: $main-color;
         }
 
@@ -88,11 +140,24 @@
             font-size: 2.25rem;
 
             &__item {
+                // display: block;
+                &__text {
+                    font-size: medium;
+                }
                 @include flex(center, center);
 
                 @include tablet {
                     margin-left: 10px;
                 }
+            }
+            &__item:hover {
+                display: flex;
+                height: 90%;
+                justify-content: center;
+                background-color: white;
+                color: #ed71a3;
+                border: medium;
+                border-radius: 10px;
             }
 
             @include mobile {
@@ -114,12 +179,56 @@
         }
         &__left {
             // width: 90%;
-            z-index: 999;
+            //
+            &__item {
+                display: block;
+                width: 120px;
+                height: 80%;
+                border: medium;
+                border-radius: 5px;
+                @include mobile {
+                    width: unset;
+                    height: unset;
+                    border: unset;
+                    border-radius: unset;
+                    display: unset;
+                    > a {
+                        display: unset;
+                        height: unset;
+                        justify-content: unset;
+                        // font-size: 10px;
+                    }
+                    > a > span {
+                        font-size: medium;
+                        // display: flex;
+                        height: 100%;
+                        // justify-content: center;
+                        @include flex(center, center);
+                    }
+                }
+                > a {
+                    display: flex;
+                    height: 100%;
+                    justify-content: center;
+                    // font-size: 10px;
+                }
+                // > a:hover {
+                //     color: #ed71a3;
+                // }
+                > a > span {
+                    font-size: medium;
+                    // display: flex;
+                    height: 100%;
+                    // justify-content: center;
+                    @include flex(center, center);
+                }
+            }
             &__close {
                 display: none;
             }
 
             @include tablet {
+                z-index: 999;
                 flex-direction: column;
                 background-color: $main-bg;
                 position: absolute;
@@ -174,7 +283,7 @@
         @include mobile {
             display: none;
         }
-        font-size: 1.25rem;
+
         padding-left: 4rem;
         padding-right: 4rem;
         &__icon {
@@ -201,7 +310,8 @@
             &__text {
                 // align-items: center;
                 padding-left: 5px;
-                font-size: 15px;
+                font-size: 12px;
+                padding-top: 2px;
                 float: left;
                 :hover {
                     color: red;
@@ -220,10 +330,10 @@
         display: flex;
         @include mobile {
             // display: none;
-            padding-top: 0;
+            padding-top: 0em;
         }
         flex-wrap: nowrap;
-        padding-top: 4em;
+        padding-top: 2em;
         justify-content: center;
         &__logo {
             @include mobile {
@@ -265,13 +375,16 @@
             display: flex;
             justify-content: center;
             width: 100%;
+
             > div {
                 width: 100%;
             }
             > div > input {
                 width: 100%;
             }
-         
+            > div > div {
+                width: 100%;
+            }
         }
     }
     .vertical {
@@ -280,5 +393,4 @@
         margin-left: 10px;
         // padding-right: 10px;
     }
-    
 }

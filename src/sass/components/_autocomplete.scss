@@ -5,6 +5,9 @@
   &__button {
     height:43px;
     width: 45px;
+    background-color: #57c5ce;
+    color: whitesmoke;
+    border: medium;
     border-radius: 0 0 10px 0;
   }
   &__input {
@@ -22,7 +25,7 @@
     font-family: Helvetica, sans-serif;
     font-weight: 300;
     font-size: 16px;
-    border: 2px solid #aaa;
+    border: 2px #57c5ce solid;
     border-radius: 10px 0px 0 0;
   }
   &__suggestion {
@@ -33,7 +36,11 @@
     }
   }
   &__suggestions {
+    
     &-container {
+      overflow: scroll;
+      height: 200px;
+      z-index:999;
       display: none;
       &--open {
         display: block;
