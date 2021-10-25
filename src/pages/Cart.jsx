@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import Helmet from '../components/Helmet'
-import CartItem from '../components/CartItem'
-import Button from '../components/Button'
+import Helmet from '../components/helmet/Helmet'
+import CartItem from '../components/cart/CartItem'
+import Button from '../components/button/Button'
 
 import productData from '../assets/fake-data/products'
 import numberWithCommas from '../utils/numberWithCommas'

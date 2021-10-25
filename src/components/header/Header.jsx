@@ -1,34 +1,15 @@
 import React, { useRef, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-import logo from '../assets/images/Logo-2.png'
+import logo from '../../assets/images/Logo-2.png'
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import { Box } from '@mui/system';
-import FreeSolo from './AutoComplete';
-import Example from './autocomplete/auto';
-import Autocomplete from './autocomplete/AutoComplete';
-import SearchBar from './searchBar';
-import AutoMan from './autocomplete/AutoSuggess';
-import CartButton from './CartButton';
-import CartBadge from './CartBadge';
-import DropdownMenu from './header/DropDownMenu';
-const CatalogDropDown = () =>{
-    return (
-        <div className="item-dropdown item-dropdown__catalog">
-             <div style={{ display: 'block', height: 5 ,width:'100%',backgroundColor:'#ed71a3'}}></div>
-            <div>Hello</div>
-        </div>
-    )
-}
-const NewDropDown = () =>{
-    return (
-        <div className="item-dropdown item-dropdown__new">
-            <DropdownMenu />
-        </div>
-    )
-}
+import AutoMan from './autocomplete/autosuggest/AutoSuggest';
+import CartButton from './cart/CartButton';
+import CartBadge from './cart/CartBadge';
+import NewDropDown from './dropdown/NewDropDown';
+import CatalogDropDown from './dropdown/CatalogDropDown';
 const mainNav = [
     {
         display: "Trang chủ",

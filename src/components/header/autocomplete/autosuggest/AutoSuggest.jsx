@@ -129,7 +129,7 @@ function getSectionSuggestions(section) {
     return section.languages;
 }
 
-class AutoMan extends React.Component {
+class AutoSuggest extends React.Component {
     constructor() {
         super();
 
@@ -183,4 +183,4 @@ class AutoMan extends React.Component {
         );
     }
 }
-export default AutoMan;
+export default AutoSuggest;

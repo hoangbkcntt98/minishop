@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import ProductView from './ProductView'
 
-import Button from './Button'
+import Button from '../button/Button'
 
-import { remove } from '../redux/product-modal/productModalSlice'
+import { remove } from '../../redux/product-modal/productModalSlice'
 
-import productData from '../assets/fake-data/products'
+import productData from '../../assets/fake-data/products'
 
 const ProductViewModal = () => {
 

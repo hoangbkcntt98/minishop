@@ -1,10 +1,10 @@
 import React from 'react'
 
-import Helmet from '../components/Helmet'
-import Section, {SectionBody, SectionTitle} from '../components/Section'
-import Grid from '../components/Grid'
-import ProductCard from '../components/ProductCard'
-import ProductView from '../components/ProductView'
+import Helmet from '../components/helmet/Helmet'
+import Section, {SectionBody, SectionTitle} from '../components/section/Section'
+import Grid from '../components/grid/Grid'
+import ProductCard from '../components/card/ProductCard'
+import ProductView from '../components/product/ProductView'
 
 import productData from '../assets/fake-data/products'
 

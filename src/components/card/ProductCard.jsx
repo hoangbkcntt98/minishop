@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
 
-import { set } from '../redux/product-modal/productModalSlice'
+import { set } from '../../redux/product-modal/productModalSlice'
 
-import Button from './Button'
+import Button from '../button/Button'
 
-import numberWithCommas from '../utils/numberWithCommas'
+import numberWithCommas from '../../utils/numberWithCommas'
 
 const ProductCard = props => {
 
