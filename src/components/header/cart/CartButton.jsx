@@ -1,7 +1,6 @@
 import React from 'react'
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Link } from '@mui/material';
 const CartButton = () => {
     return (
         <React.Fragment>

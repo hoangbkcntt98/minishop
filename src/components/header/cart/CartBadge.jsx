@@ -1,7 +1,6 @@
 import React from 'react'
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { height } from '@mui/system';
 const CartBadge = () => {
     return (
         <React.Fragment>

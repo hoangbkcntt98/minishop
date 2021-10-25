@@ -2,17 +2,18 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Helmet from '../components/helmet/Helmet'
-import HeroSlider from '../components/slider/HeroSlider'
 import Section, { SectionTitle, SectionBody } from '../components/section/Section'
 import PolicyCard from '../components/card/PolicyCard'
 import Grid from '../components/grid/Grid'
 import ProductCard from '../components/card/ProductCard'
 
-import heroSliderData from '../assets/fake-data/hero-slider'
 import policy from '../assets/fake-data/policy'
 import productData from '../assets/fake-data/products'
-
+import HeroSlider from '../components/slider/HeroSlider'
+import heroSliderData from '../assets/fake-data/hero-slider'
 import banner from '../assets/images/banner.png'
+import ad1 from '../assets/images/banner1.jpg'
+import Slider from '../components/slider/Slider'
 
 const Home = () => {
     return (
@@ -24,6 +25,22 @@ const Home = () => {
                 auto={false}
                 timeOut={5000}
             /> */}
+            <Section>
+                <div className="banner">
+                    <Slider />
+                    {/* <HeroSlider
+                        data={heroSliderData}
+                        control={true}
+                        auto={false}
+                        timeOut={5000}
+                    /> */}
+                    <div className="banner__ads">
+                        <div className="banner__ads__image"><img src={ad1} alt=""></img></div>
+                        <div className="banner__ads__image"><img src={ad1} alt=""></img></div>
+                    </div>
+                </div>
+
+            </Section>
             {/* end hero slider */}
 
             {/* policy section */}
@@ -106,7 +123,7 @@ const Home = () => {
                 </SectionBody>
             </Section>
             {/* end new arrival section */}
-            
+
             {/* banner */}
             <Section>
                 <SectionBody>

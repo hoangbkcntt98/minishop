@@ -12,22 +12,22 @@ import NewDropDown from './dropdown/NewDropDown';
 import CatalogDropDown from './dropdown/CatalogDropDown';
 const mainNav = [
     {
-        display: "Trang chủ",
+        display: "TRANG CHỦ",
         path: "/",
         // dropdown:<CatalogDropDown/>
     },
     {
-        display: "Sản phẩm",
+        display: "SẢN PHẨM",
         path: "/catalog",
         dropdown:<CatalogDropDown/>
     },
     {
-        display: "Tin tuc",
+        display: "TIN TỨC",
         path: "/accessories",
         dropdown:<NewDropDown/>
     },
     {
-        display: "Liên hệ",
+        display: "LIÊN HỆ",
         path: "/contact",
         // dropdown:<CatalogDropDown/>
     },
