@@ -2,7 +2,9 @@
     display: flex;
     width: 100%;
     position: relative;
-    
+    @include mobile{
+        display: none;
+    }
     // @include flex(center,center);
     margin-left: 100px;
     // margin-right: 300px;

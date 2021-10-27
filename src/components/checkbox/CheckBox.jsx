@@ -12,6 +12,7 @@ const CheckBox = props => {
     }
 
     return (
+        // inside a label checkbox can active any position 
         <label className="custom-checkbox">
             <input type="checkbox" ref={inputRef} onChange={onChange} checked={props.checked}/>
             <span className="custom-checkbox__checkmark">

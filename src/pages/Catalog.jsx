@@ -9,9 +9,9 @@ import colors from '../assets/fake-data/product-color'
 import size from '../assets/fake-data/product-size'
 import Button from '../components/button/Button'
 import InfinityList from '../components/list/InfinityList'
+import NavLink from '../components/nav-link/NavLink'
 
 const Catalog = () => {
-
     const initFilter = {
         category: [],
         color: [],
@@ -23,34 +23,39 @@ const Catalog = () => {
     const [products, setProducts] = useState(productList)
 
     const [filter, setFilter] = useState(initFilter)
-
+    useEffect(() => {
+        console.log(filter)
+    }, [filter])
     const filterSelect = (type, checked, item) => {
         if (checked) {
-            switch(type) {
+            switch (type) {
+                case "INDEX":
+                    setFilter({...filter,category:item})
+                    break
                 case "CATEGORY":
-                    setFilter({...filter, category: [...filter.category, item.categorySlug]})
+                    setFilter({ ...filter, category: [...filter.category, item.categorySlug] })
                     break
                 case "COLOR":
-                    setFilter({...filter, color: [...filter.color, item.color]})
+                    setFilter({ ...filter, color: [...filter.color, item.color] })
                     break
                 case "SIZE":
-                    setFilter({...filter, size: [...filter.size, item.size]})
+                    setFilter({ ...filter, size: [...filter.size, item.size] })
                     break
                 default:
             }
         } else {
-            switch(type) {
+            switch (type) {
                 case "CATEGORY":
                     const newCategory = filter.category.filter(e => e !== item.categorySlug)
-                    setFilter({...filter, category: newCategory})
+                    setFilter({ ...filter, category: newCategory })
                     break
                 case "COLOR":
                     const newColor = filter.color.filter(e => e !== item.color)
-                    setFilter({...filter, color: newColor})
+                    setFilter({ ...filter, color: newColor })
                     break
                 case "SIZE":
                     const newSize = filter.size.filter(e => e !== item.size)
-                    setFilter({...filter, size: newSize})
+                    setFilter({ ...filter, size: newSize })
                     break
                 default:
             }
@@ -93,7 +98,6 @@ const Catalog = () => {
     const filterRef = useRef(null)
 
     const showHideFilter = () => filterRef.current.classList.toggle('active')
-
     return (
         <Helmet title="Sản phẩm">
             <div className="catalog">
@@ -102,8 +106,23 @@ const Catalog = () => {
                         <i className="bx bx-left-arrow-alt"></i>
                     </div>
                     <div className="catalog__filter__widget">
+                        <div className="catalog__filter__widget__title catalog__filter__widget__title__category">
+                            DANH MUC
+                        </div>
+
+                        <div className="catalog__filter__widget__content">
+                            <NavLink
+                                filterFunc={filterSelect}
+                            />
+                            
+                        </div>
+                    </div>
+                    <div className="catalog__filter__widget__title catalog__filter__widget__title__category">
+                        BO LOC
+                    </div>
+                    {/* <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__title">
-                            danh mục sản phẩm
+                            Loai
                         </div>
                         <div className="catalog__filter__widget__content">
                             {
@@ -118,7 +137,7 @@ const Catalog = () => {
                                 ))
                             }
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__title">

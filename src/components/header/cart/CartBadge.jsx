@@ -1,11 +1,17 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useSelector } from 'react-redux'
 const CartBadge = () => {
+    const cartItems = useSelector((state) => state.cartItems.value)
+    const [totalProducts, setTotalProducts] = useState(0)
+    useEffect(() => {
+        setTotalProducts(cartItems.reduce((total, item) => total + Number(item.quantity), 0))
+    }, [cartItems])
     return (
         <React.Fragment>
-            <a href="">
-                <Badge badgeContent={4} color="primary"
+            <a href="/cart">
+                <Badge badgeContent={totalProducts} color="primary"
                     sx={{
                         "& .MuiBadge-badge": {
                             color: "#white",
