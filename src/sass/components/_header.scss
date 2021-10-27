@@ -60,8 +60,9 @@
         background-color: #ed71a3;
         color: #ffff;
         @include mobile {
+            
             background-color: white;
-            color: #ed71a3;
+            color: black;
             margin-top: 1em;
             margin-bottom: 2em;
             padding: 0;
@@ -108,9 +109,15 @@
             border: medium;
             border-radius: 10px;
             box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
-            
+            @include mobile{
+                display: none;
+            }
+            @include tablet{
+                display: none;
+            }
             z-index: 999;
             &__catalog{
+               
                 color: black;
                 position: absolute;
                 left: 100px;
@@ -119,15 +126,16 @@
                 
             }
             &__new{
+               
                 width: 200px;
                 position: relative;
             }
         }
         &__item:hover {
-            @include mobile {
-                display: none;
-            }
             .item-dropdown {
+                @include mobile {
+                    display: none;
+                }
                 color:black;
                 display: block;
             }
