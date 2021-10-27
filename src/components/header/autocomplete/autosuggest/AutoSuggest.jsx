@@ -6,6 +6,7 @@ import category from '../../../../assets/fake-data/category'
 import { SuggestionItem } from "./SuggestionItem";
 import { useSelector,useDispatch } from "react-redux";
 import { filterSelectRedux } from "../../../../redux/product/ProductSlice";
+
 import { useHistory } from "react-router";
 const AutoSuggest = () => {
     const [value, setValue] = useState('');
@@ -85,6 +86,7 @@ const AutoSuggest = () => {
 
     const onSuggestionsFetchRequested = ({ value }) => {
         setSuggestion(getSuggestions(value))
+        
     };
 
     const onSuggestionsClearRequested = () => {

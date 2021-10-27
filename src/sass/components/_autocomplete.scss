@@ -3,6 +3,7 @@
     position: relative;
   }
   &__button {
+    cursor: pointer;
     height: 43px;
     width: 45px;
     background-color: #57c5ce;
@@ -86,6 +87,7 @@
       height: unset;
     }
     display: flex;
+    flex-wrap: wrap;
     border-bottom: 2px solid #d8d8d852;
     padding: 6px 8px;
     align-items: center;
@@ -107,11 +109,32 @@
     margin-left: 10px;
     flex: 2;
     display: flex;
+    @include mobile{
+      font-size: 12px;
+    }
   }
   &__price {
-    color: #a1a1a1;
-    font-size: 16px;
+    &__container{
+      flex-direction: column;
+     
+    }
+    &__old{
+      color: #a1a1a1;
+      text-align: center;
+      text-decoration-line: line-through;
+      @include mobile{
+        font-size: 12px;
+      }
+      font-size: 15px;
+      // flex-direction: column;
+    }
+    // 
+    font-size: 17px;
     display: flex;
-    flex: 0.2;
+    align-items: right;
+    // flex: 1.2;
+    @include mobile{
+      font-size: 14px;
+    }
   }
 }
