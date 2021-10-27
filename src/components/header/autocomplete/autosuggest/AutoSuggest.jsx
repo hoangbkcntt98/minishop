@@ -1,185 +1,116 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import Autosuggest from "react-autosuggest";
 import SearchIcon from '@mui/icons-material/Search'
-const languages = [
-    {
-        title: '1970s',
-        languages: [
-            {
-                name: 'C',
-                year: 1972
-            }
-        ]
-    },
-    {
-        title: '1980s',
-        languages: [
-            {
-                name: 'C++',
-                year: 1983
-            },
-            {
-                name: 'Perl',
-                year: 1987
-            }
-        ]
-    },
-    {
-        title: '1990s',
-        languages: [
-            {
-                name: 'Haskell',
-                year: 1990
-            },
-            {
-                name: 'Python',
-                year: 1991
-            },
-            {
-                name: 'Java',
-                year: 1995
-            },
-            {
-                name: 'Javascript',
-                year: 1995
-            },
-            {
-                name: 'PHP',
-                year: 1995
-            },
-            {
-                name: 'Ruby',
-                year: 1995
-            }
-        ]
-    },
-    {
-        title: '2000s',
-        languages: [
-            {
-                name: 'C#',
-                year: 2000
-            },
-            {
-                name: 'Scala',
-                year: 2003
-            },
-            {
-                name: 'Clojure',
-                year: 2007
-            },
-            {
-                name: 'Go',
-                year: 2009
-            }
-        ]
-    },
-    {
-        title: '2010s',
-        languages: [
-            {
-                name: 'Elm',
-                year: 2012
-            }
-        ]
+import productData from '../../../../assets/fake-data/products'
+import category from '../../../../assets/fake-data/category'
+import { SuggestionItem } from "./SuggestionItem";
+import { useSelector,useDispatch } from "react-redux";
+import { filterSelectRedux } from "../../../../redux/product/ProductSlice";
+import { useHistory } from "react-router";
+const AutoSuggest = () => {
+    const [value, setValue] = useState('');
+    const [suggestions, setSuggestion] = useState([])
+    const products = productData.getAllProducts()
+    const filterState = useSelector((state) => state.product.filter)
+    const dispatch = useDispatch()
+    const history = useHistory();
+    useEffect(() => {
+        console.log(filterState)
+    }, [filterState])
+    // useEffect(() => {
+    //     console.log(value)
+       
+    // }, [value])
+    const handleSubmit = () =>{
+        // alert(value)
+        dispatch(filterSelectRedux({type:"NAME",checked:true,item:value}))
+        history.push('/catalog')
     }
-];
-
-function escapeRegexCharacters(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function getSuggestions(value) {
-    const escapedValue = escapeRegexCharacters(value.trim());
-
-    if (escapedValue === '') {
-        return [];
-    }
-
-    const regex = new RegExp('^' + escapedValue, 'i');
-
-    return languages
-        .map(section => {
+    // console.log(products)
+    var data = []
+   
+    data = category.map(cate => {
+        let productCate = products.filter(p => p.categorySlug == cate.categorySlug)
+        productCate = productCate.map(item => {
             return {
-                title: section.title,
-                languages: section.languages.filter(language => regex.test(language.name))
-            };
+                name: item.title,
+                price: item.price,
+                img:item.image01
+            }
+
+
         })
-        .filter(section => section.languages.length > 0);
-}
+        return {
+            title: cate.display,
+            products: productCate
+        }
+    })
+    // console.log(data)
 
-function getSuggestionValue(suggestion) {
-    return suggestion.name;
-}
-
-function renderSuggestion(suggestion) {
-    return (
-        <span>{suggestion.name}</span>
-    );
-}
-
-function renderSectionTitle(section) {
-    return (
-        <strong>{section.title}</strong>
-    );
-}
-
-function getSectionSuggestions(section) {
-    return section.languages;
-}
-
-class AutoSuggest extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            value: '',
-            suggestions: []
-        };
+    function getSuggestions(value) {
+        let rs = data.filter(lang =>{
+            let products = lang.products.filter(item => item.name.toLowerCase().includes(value.toLowerCase()))
+            if(products.length>0) return lang
+        })
+        console.log(rs)
+        return rs;
     }
 
-    onChange = (event, { newValue, method }) => {
-        this.setState({
-            value: newValue
-        });
-    };
+    function getSuggestionValue(suggestion) {
+        return suggestion.name;
+    }
 
-    onSuggestionsFetchRequested = ({ value }) => {
-        this.setState({
-            suggestions: getSuggestions(value)
-        });
-    };
-
-    onSuggestionsClearRequested = () => {
-        this.setState({
-            suggestions: []
-        });
-    };
-
-    render() {
-        const { value, suggestions } = this.state;
-        const inputProps = {
-            placeholder: "Tim kiem san pham",
-            value,
-            onChange: this.onChange,
-        };
-
+    function renderSuggestion(suggestion) {
         return (
-            <React.Fragment>
-                <Autosuggest
-                    id="find_product"
-                    multiSection={true}
-                    suggestions={suggestions}
-                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                    getSuggestionValue={getSuggestionValue}
-                    renderSuggestion={renderSuggestion}
-                    renderSectionTitle={renderSectionTitle}
-                    getSectionSuggestions={getSectionSuggestions}
-                    inputProps={inputProps} />
-                <button className = 'react-autosuggest__button'><SearchIcon></SearchIcon></ button>
-            </React.Fragment>
+            <div className= "react-autosuggest__result">
+                <SuggestionItem thumbanilSrc={suggestion.img} name={suggestion.name} price={suggestion.price}></SuggestionItem>
+            </div>
+            // <span>{suggestion.name}</span>
         );
     }
+
+    function renderSectionTitle(section) {
+        return (
+            <h3>{section.title.toUpperCase()}</h3>
+        );
+    }
+
+    function getSectionSuggestions(section) {
+        return section.products;
+    }
+
+    const onChange = (event, { newValue, method }) => {
+        setValue(newValue)
+    };
+
+    const onSuggestionsFetchRequested = ({ value }) => {
+        setSuggestion(getSuggestions(value))
+    };
+
+    const onSuggestionsClearRequested = () => {
+        setSuggestion([])
+    };
+    const inputProps = {
+        placeholder: "Tim kiem san pham",
+        value,
+        onChange: onChange,
+    };
+    return (
+        <React.Fragment>
+            <Autosuggest
+                id="find_product"
+                multiSection={true}
+                suggestions={suggestions}
+                onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={onSuggestionsClearRequested}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+                renderSectionTitle={renderSectionTitle}
+                getSectionSuggestions={getSectionSuggestions}
+                inputProps={inputProps} />
+            <button className='react-autosuggest__button' onClick = {handleSubmit}><SearchIcon></SearchIcon></ button>
+        </React.Fragment>
+    );
+    // }
 }
 export default AutoSuggest;

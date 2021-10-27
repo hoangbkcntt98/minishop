@@ -3,7 +3,8 @@ const initialState = {
     filter: {
         category: [],
         color: [],
-        size: []
+        size: [],
+        name:''
     }
 }
 
@@ -32,6 +33,9 @@ export const product = createSlice({
                 //     filter.category = [...filter.category,item.categorySlug]
                 // }
                 switch (type) {
+                    case "NAME":
+                        state.filter.name = item
+                        break
                     case "INDEX":
                         state.filter.category = item
                         break

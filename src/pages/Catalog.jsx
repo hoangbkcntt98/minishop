@@ -36,6 +36,9 @@ const Catalog = () => {
     const updateProducts = useCallback(
         () => {
             let temp = productList
+            if(filterState.name.length>0){
+                temp = temp.filter(e=> e.title.includes(filterState.name))
+            }
             if (filterState.category.length > 0) {
                 temp = temp.filter(e => filterState.category.includes(e.categorySlug))
             }
