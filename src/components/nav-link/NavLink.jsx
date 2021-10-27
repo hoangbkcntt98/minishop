@@ -1,10 +1,11 @@
 import userEvent from '@testing-library/user-event';
 import React, { useEffect, useState } from 'react'
 import NavLinkItem from './NavLinkItem';
+import { useSelector, useDispatch } from 'react-redux'
 import initIndex from '../../assets/fake-data/index'
+import { filterSelectRedux } from '../../redux/product/ProductSlice';
 const NavLink = (props) => {
-    const { filterFunc } = props
-
+    const dispatch = useDispatch()
     const [index, setIndexs] = useState(initIndex)
     const show = (item) => {
         let temp = clone(index);
@@ -18,13 +19,19 @@ const NavLink = (props) => {
     }
     const update = (type, item) => {
         // filterFunc("INDEX",true,[])
-        if(type =="index"){
-            filterFunc("INDEX", true, item.child.map(d => d.categorySlug))
+        const filterData = {
+            type:type,
+            checked:true,
+            item:item.child?item.child.map(data => data.categorySlug):item.categorySlug,
         }
-        if(type =="category"){
-            // filterFunc("CATEGORY",true,item)
-            filterFunc("INDEX", true, [item.categorySlug])
-        }
+        dispatch(filterSelectRedux(filterData))
+        // if(type =="index"){
+        //     dispatch(filterSelectRedux("INDEX", true, item.child.map(d => d.categorySlug)))
+        // }
+        // if(type =="category"){
+        //     // filterSelectRedux("CATEGORY",true,item)
+        //     filterSelectRedux("INDEX", true, [item.categorySlug])
+        // }
            
 
     }

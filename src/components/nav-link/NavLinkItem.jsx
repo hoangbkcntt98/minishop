@@ -8,7 +8,7 @@ const NavLinkItem = (props) => {
                 <div class="nav-link__item__root">
                     <div class="nav-link__item__root__link">
                         <i class="bx bxs-right-arrow small-icons" type="solid"></i>
-                        <a onClick={()=>update('index',title)} title={title.root}><i class="fa fa-caret-right" aria-hidden="true"></i>{title.root}</a>
+                        <a onClick={()=>update('INDEX',title)} title={title.root}><i class="fa fa-caret-right" aria-hidden="true"></i>{title.root}</a>
                     </div>
 
                     <div class="nav-link__item__root__dropdown__btn">
@@ -20,7 +20,7 @@ const NavLinkItem = (props) => {
                     {title.child.map((element, key) => {
                         return (
                             <li class="nav-link__dropdown__item " key={key}>
-                                <a class="nav-link__dropdown__aothun" onClick={() =>update('category',element)} title={element.display}>{element.display}</a>
+                                <a class="nav-link__dropdown__aothun" onClick={() =>update('INDEX',element)} title={element.display}>{element.display}</a>
                             </li>
                         )
                     })}
