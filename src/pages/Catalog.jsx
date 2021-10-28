@@ -10,11 +10,12 @@ import Button from '../components/button/Button'
 import InfinityList from '../components/list/InfinityList'
 import NavLink from '../components/nav-link/NavLink'
 import { useSelector, useDispatch } from 'react-redux'
-import { clearFilterRedux, filterSelectRedux } from '../redux/product/ProductSlice'
+import { addLinks, clearFilterRedux, filterSelectRedux, setLinks } from '../redux/product/ProductSlice'
 import SearchName from '../components/search/SearchName'
-
+import Breadcrumb from '../components/bread-cumb/BreadCumb'
 const Catalog = () => {
     const filterState = useSelector((state) => state.product.filter)
+    const links = useSelector(state => state.product.links)
     const dispatch = useDispatch()
     useEffect(() => {
         // console.log(filterState)
@@ -73,8 +74,16 @@ const Catalog = () => {
         filterRef.current.classList.toggle('active')
         setOpen(!open)
     }
+    useEffect(()=>{
+        dispatch(setLinks([{
+            display:"Product",
+            link:"/catalog"
+        }]))
+        // setLinks(['Product'])
+    },[])
     return (
         <Helmet title="Sản phẩm">
+             <Breadcrumb />
             <div className="catalog">
                 <div className={open ? "catalog__filter__close show" : "catalog__filter__close"} onClick={showHideFilter}>
                     <i className="bx bx-x"></i>
@@ -94,25 +103,6 @@ const Catalog = () => {
                     <div className="catalog__filter__widget__title catalog__filter__widget__title__category">
                         BO LOC
                     </div>
-                    {/* <div className="catalog__filter__widget">
-                        <div className="catalog__filter__widget__title">
-                            Loai
-                        </div>
-                        <div className="catalog__filter__widget__content">
-                            {
-                                category.map((item, index) => (
-                                    <div key={index} className="catalog__filter__widget__content__item">
-                                        <CheckBox
-                                            label={item.display}
-                                            onChange={(input) => filterSelect("CATEGORY", input.checked, item)}
-                                            checked={filter.category.includes(item.categorySlug)}
-                                        />
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </div> */}
-
                     <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__title">
                             màu sắc

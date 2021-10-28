@@ -4,8 +4,9 @@ const initialState = {
         category: [],
         color: [],
         size: [],
-        name:''
-    }
+        name:'',
+    },
+    links:[]
 }
 
 export const product = createSlice({
@@ -78,12 +79,23 @@ export const product = createSlice({
             }
             // console.log(filter)
         },
+        addLinks :(state,action) =>{
+            state.links = [...state.links,action.payload]
+            console.log(state.links)
+        },
+        updateLinks: (state,action)=>{
+            state.links.pop()
+            state.links = [...state.links,action.payload]
+        },
+        setLinks:(state,action) =>{
+            state.links = action.payload
+        }
 
         
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { filterSelectRedux,clearFilterRedux } = product.actions
+export const { filterSelectRedux,clearFilterRedux,addLinks,updateLinks,setLinks} = product.actions
 
 export default product.reducer

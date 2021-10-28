@@ -8,6 +8,7 @@ import CartItem from '../components/cart/CartItem'
 import Button from '../components/button/Button'
 
 import productData from '../assets/fake-data/products'
+import BreadCumb from '../components/bread-cumb/BreadCumb'
 import numberWithCommas from '../utils/numberWithCommas'
 
 const Cart = () => {
@@ -27,38 +28,42 @@ const Cart = () => {
     }, [cartItems])
 
     return (
-        <Helmet title="Giỏ hàng">
-            <div className="cart">
-                <div className="cart__info">
-                    <div className="cart__info__txt">
-                        <p>
-                            Bạn đang có {totalProducts} sản phẩm trong giỏ hàng
-                        </p>
-                        <div className="cart__info__txt__price">
-                            <span>Thành tiền:</span> <span>{numberWithCommas(Number(totalPrice))}</span>
+        <React.Fragment>
+            
+            <Helmet title="Giỏ hàng">
+           
+                <div className="cart">
+                    <div className="cart__info">
+                        <div className="cart__info__txt">
+                            <p>
+                                Bạn đang có {totalProducts} sản phẩm trong giỏ hàng
+                            </p>
+                            <div className="cart__info__txt__price">
+                                <span>Thành tiền:</span> <span>{numberWithCommas(Number(totalPrice))}</span>
+                            </div>
+                        </div>
+                        <div className="cart__info__btn">
+                            <Button size="block">
+                                Đặt hàng
+                            </Button>
+                            <Link to="/catalog">
+                                <Button size="block">
+                                    Tiếp tục mua hàng
+                                </Button>
+                            </Link>
+
                         </div>
                     </div>
-                    <div className="cart__info__btn">
-                        <Button size="block">
-                            Đặt hàng
-                        </Button>
-                        <Link to="/catalog">
-                            <Button size="block">
-                                Tiếp tục mua hàng
-                            </Button>
-                        </Link>
-                        
+                    <div className="cart__list">
+                        {
+                            cartProducts.map((item, index) => (
+                                <CartItem item={item} key={index} />
+                            ))
+                        }
                     </div>
                 </div>
-                <div className="cart__list">
-                    {
-                        cartProducts.map((item, index) => (
-                            <CartItem item={item} key={index}/>
-                        ))
-                    }
-                </div>
-            </div>
-        </Helmet>
+            </Helmet>
+        </React.Fragment>
     )
 }
 
