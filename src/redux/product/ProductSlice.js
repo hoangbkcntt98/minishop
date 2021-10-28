@@ -14,21 +14,23 @@ export const product = createSlice({
     reducers: {
         clearFilterRedux:(state,action) => {
             const temp = action.payload
-            alert('what')
+            // alert('what')
             console.log(temp)
-            state = initialState
-            state.filter.size=[]
-            state.filter.category=[]
-            state.filter.color = []
+            state.filter= initialState.filter
+            // state.filter.size=[]
+            // state.filter.category=[]
+            // state.filter.color = []
             // console.log(state.filter)
         },
         filterSelectRedux: (state, action) => {
+            // alert(action.payload)
             const { type, checked, item } = action.payload
             var filter = state.filter
             var category = filter.category
             var color = state.filter.color
             var size = filter.size
-            if (checked) {
+            // alert(checked)
+            if (checked==true) {
                 // if(type == "COLOR"){
                 //     filter.category = [...filter.category,item.categorySlug]
                 // }
@@ -54,7 +56,11 @@ export const product = createSlice({
                 }
 
             } else {
+                console.log(checked)
                 switch (type) {
+                    case "NAME":
+                        state.filter.name = ""
+                        break
                     case "CATEGORY":
                         const newCategory = filter.category.filter(e => e !== item.categorySlug)
                         filter.category = newCategory

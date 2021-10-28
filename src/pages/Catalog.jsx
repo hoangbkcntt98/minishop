@@ -11,12 +11,13 @@ import InfinityList from '../components/list/InfinityList'
 import NavLink from '../components/nav-link/NavLink'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearFilterRedux, filterSelectRedux } from '../redux/product/ProductSlice'
+import SearchName from '../components/search/SearchName'
 
 const Catalog = () => {
     const filterState = useSelector((state) => state.product.filter)
     const dispatch = useDispatch()
     useEffect(() => {
-        console.log(filterState)
+        // console.log(filterState)
     }, [filterState])
     const productList = productData.getAllProducts()
 
@@ -36,10 +37,11 @@ const Catalog = () => {
     const updateProducts = useCallback(
         () => {
             let temp = productList
-            if(filterState.name.length>0){
-                temp = temp.filter(e=> e.title.includes(filterState.name))
+            if (filterState.name.length > 0) {
+                temp = temp.filter(e => e.title.includes(filterState.name))
             }
             if (filterState.category.length > 0) {
+
                 temp = temp.filter(e => filterState.category.includes(e.categorySlug))
             }
 
@@ -66,7 +68,7 @@ const Catalog = () => {
     }, [updateProducts])
 
     const filterRef = useRef(null)
-    const [open,setOpen] = useState(false)
+    const [open, setOpen] = useState(false)
     const showHideFilter = () => {
         filterRef.current.classList.toggle('active')
         setOpen(!open)
@@ -74,10 +76,11 @@ const Catalog = () => {
     return (
         <Helmet title="Sản phẩm">
             <div className="catalog">
-                <div className={open?"catalog__filter__close show":"catalog__filter__close"} onClick={showHideFilter}>
+                <div className={open ? "catalog__filter__close show" : "catalog__filter__close"} onClick={showHideFilter}>
                     <i className="bx bx-x"></i>
                 </div>
                 <div className="catalog__filter" ref={filterRef}>
+
 
                     <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__title catalog__filter__widget__title__category">
@@ -150,7 +153,9 @@ const Catalog = () => {
 
                     <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__content">
-                            <Button size="sm" onClick={() => clearFilterRedux()}>xóa bộ lọc</Button>
+                            <Button size="sm" onClick={() => {
+                                    dispatch(clearFilterRedux())
+                                }}>xóa bộ lọc</Button>
                         </div>
                     </div>
                 </div>
@@ -158,6 +163,9 @@ const Catalog = () => {
                     <Button size="sm" onClick={() => showHideFilter()}>bộ lọc</Button>
                 </div>
                 <div className="catalog__content">
+                    <SearchName
+                    />
+                    {/* {filterState.name.length > 0 && <div>Kết quả tìm kiếm cho : {filterState.name.toUpperCase()}</div>} */}
                     <InfinityList
                         data={products}
                     />
