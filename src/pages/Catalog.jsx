@@ -13,13 +13,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addLinks, clearFilterRedux, filterSelectRedux, setLinks } from '../redux/product/ProductSlice'
 import SearchName from '../components/search/SearchName'
 import Breadcrumb from '../components/bread-cumb/BreadCumb'
+
 const Catalog = () => {
     const filterState = useSelector((state) => state.product.filter)
     const links = useSelector(state => state.product.links)
     const dispatch = useDispatch()
-    useEffect(() => {
-        // console.log(filterState)
-    }, [filterState])
     const productList = productData.getAllProducts()
 
     const [products, setProducts] = useState(productList)
@@ -79,12 +77,12 @@ const Catalog = () => {
             display:"Product",
             link:"/catalog"
         }]))
-        // setLinks(['Product'])
     },[])
     return (
         <Helmet title="Sản phẩm">
              <Breadcrumb />
             <div className="catalog">
+               
                 <div className={open ? "catalog__filter__close show" : "catalog__filter__close"} onClick={showHideFilter}>
                     <i className="bx bx-x"></i>
                 </div>

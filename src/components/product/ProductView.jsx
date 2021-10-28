@@ -10,7 +10,7 @@ import { remove } from '../../redux/product-modal/productModalSlice'
 
 import Button from '../button/Button'
 import numberWithCommas from '../../utils/numberWithCommas'
-
+import { success,warn } from '../noti/noti'
 const ProductView = props => {
 
     const dispatch = useDispatch()
@@ -56,12 +56,12 @@ const ProductView = props => {
 
     const check = () => {
         if (color === undefined) {
-            alert('Vui lòng chọn màu sắc!')
+            warn('Vui lòng chọn màu sắc!')
             return false
         }
 
         if (size === undefined) {
-            alert('Vui lòng chọn kích cỡ!')
+            warn('Vui lòng chọn kích cỡ!')
             return false
         }
 
@@ -78,9 +78,9 @@ const ProductView = props => {
                 quantity: quantity
             }
             if (dispatch(addItem(newItem))) {
-                alert('Success')
+                success('Them vao gio hang thanh cong!')
             } else {
-                alert('Fail')
+                warn('Fail')
             }
         }
     }
