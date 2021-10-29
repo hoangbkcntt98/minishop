@@ -61,14 +61,14 @@ const Header = () => {
                             <LoginIcon />
                         </div>
                         <div className="header__information__sign__text">
-                            <div><a href="#">Đăng nhập</a></div>
+                            <div><a href="/login">Đăng nhập</a></div>
                         </div>
                         <div className="vertical"></div>
                         <div className="header__information__sign__icon">
                             <PersonAddIcon />
                         </div>
                         <div className="header__information__sign__text">
-                            <div><a href="#">Đăng kí</a></div>
+                            <div><a href="/signup">Đăng kí</a></div>
                         </div>
                     </div>
 

@@ -43,7 +43,7 @@ export default function Breadcrumb(props) {
                         return (
                             <Link
                                 underline="hover"
-                                sx={{ display: 'flex', alignItems: 'center' ,fontSize:17}}
+                                sx={{ display: 'flex', alignItems: 'center' ,fontSize:17,cursor:'pointer'}}
                                 color={color}
                                 onClick = {() => toRoute(item)}
                             >
