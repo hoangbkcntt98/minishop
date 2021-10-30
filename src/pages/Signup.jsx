@@ -150,7 +150,7 @@ export default function Signup() {
 
                                     }}
                                 >
-                                    Đăng Nhập
+                                    Đăng Kí
                                 </Button>
 
                             </div>
