@@ -155,7 +155,7 @@ export default function Signup() {
 
                             </div>
 
-                            <hr className="login__hr-title" />
+                            {/* <hr className="login__hr-title" />
                             <Grid container className = "login__footer">
                                 <Grid item xs>
                                     <Link href="#" variant="body2">
@@ -168,7 +168,7 @@ export default function Signup() {
                                      <p>Đăng kí tại đây</p>
                                     </Link>
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
                         </Box>
                     </Box>
                     <Copyright sx={{ mt: 8, mb: 4 }} />

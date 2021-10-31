@@ -29,7 +29,7 @@
         @include flex(center,center);
         margin-top: 2em;     
         &__button{
-          
+            cursor: pointer;
             margin-left: 0.7em;
             border: 0;
             position: relative;
