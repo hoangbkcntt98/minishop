@@ -109,6 +109,16 @@ export default function Signup() {
                                 // autoComplete="email"
                                 autoFocus
                             />
+                             <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="phone"
+                                label="Số điện thoại"
+                                name="phone"
+                                // autoComplete="email"
+                                autoFocus
+                            />
                             <TextField
                                 margin="normal"
                                 required
