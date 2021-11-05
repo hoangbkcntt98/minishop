@@ -11,3 +11,10 @@ export const Status = {
      GET_USER_SUCCESS : 207,
      USER_NOT_FOUND : 504,
 }
+export const getStatus = (status) =>{
+     return Object.keys(Status).find(key => Status[key]==status);
+}
+export const checkStatus = (status) =>{
+     
+     return status>=500?false:true
+}
