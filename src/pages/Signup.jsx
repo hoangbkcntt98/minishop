@@ -73,7 +73,7 @@ export default function Signup() {
 
                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                             <hr className="login__hr-title" />
-                            <div className="login__social">
+                            {/* <div className="login__social">
                                 <button className="login__social__button login__social__button__fb">
                                     <i className="bx bxl-facebook"></i>
                                     <div className="login__social__button__divider">
@@ -88,17 +88,8 @@ export default function Signup() {
                                     </div>
                                     <div className="login__social__button__text">Google</div>
                                 </button>
-                            </div>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="first"
-                                label="Họ"
-                                name="first"
-                                // autoComplete="email"
-                                autoFocus
-                            />
+                            </div> */}
+        
                             <TextField
                                 margin="normal"
                                 required
@@ -140,10 +131,10 @@ export default function Signup() {
                                 id="password"
                                 autoComplete="current-password"
                             />
-                            <FormControlLabel
+                            {/* <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
-                            />
+                            /> */}
                             <div className="login__button">
                                 <Button
                                     type="submit"
@@ -165,20 +156,7 @@ export default function Signup() {
 
                             </div>
 
-                            {/* <hr className="login__hr-title" />
-                            <Grid container className = "login__footer">
-                                <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Quên mật khẩu
-                                    </Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link href="#" variant="body2">
-                                     <p>Bạn chưa có tài khoản ?</p>
-                                     <p>Đăng kí tại đây</p>
-                                    </Link>
-                                </Grid>
-                            </Grid> */}
+                        
                         </Box>
                     </Box>
                     <Copyright sx={{ mt: 8, mb: 4 }} />

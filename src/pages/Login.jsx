@@ -15,6 +15,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import Breadcrumb from '../components/bread-cumb/BreadCumb';
 import { setLinks } from '../redux/product/ProductSlice';
+import userServices from '../services/userServices';
+import { checkLength } from '../utils/checkLength';
+import { Status } from '../status';
 
 function Copyright(props) {
     return (
@@ -33,15 +36,23 @@ const theme = createTheme();
 
 export default function Login() {
     const dispatch = useDispatch()
+    const [data,setData] = React.useState({
+        email:undefined,
+        password:undefined,
+    })
+    const {email,password} = data;
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        console.log(data)
+        userServices.login(data);
     };
+    const handleEmail = (event) =>{
+        // console.log(event.target.value)
+        setData({...data,email:event.target.value})
+    }
+    const handlePassword = (e) =>{
+        setData({...data,password:e.target.value})
+    }
     React.useEffect(() => {
         dispatch(setLinks([{
             display: "Dang nhap",
@@ -60,7 +71,7 @@ export default function Login() {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            border: 'mediu',
+                            
                             borderRadius: '10px',
                             p: 2,
                             
@@ -100,6 +111,7 @@ export default function Login() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                onChange={handleEmail}
                                 autoFocus
                             />
                             <TextField
@@ -110,6 +122,7 @@ export default function Login() {
                                 label="Password"
                                 type="password"
                                 id="password"
+                                onChange={handlePassword}
                                 autoComplete="current-password"
                             />
                             <FormControlLabel
@@ -121,6 +134,7 @@ export default function Login() {
                                     type="submit"
                                     fullWidth
                                     variant="contained"
+                                    // onClick={handleSubmit}
                                     sx={{
                                         // mt: 3,
                                         // mb: 2,
