@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import productServices from '../../services/productServices'
 const initialState = {
     filter: {
         category: [],
@@ -6,22 +7,23 @@ const initialState = {
         size: [],
         name:'',
     },
-    links:[]
+    links:[],
+    products:[]
 }
 
 export const product = createSlice({
     name: 'product',
     initialState,
     reducers: {
+        getProducts:(state,action) =>{
+            state.products = action.payload
+        },
         clearFilterRedux:(state,action) => {
             const temp = action.payload
             // alert('what')
             console.log(temp)
             state.filter= initialState.filter
-            // state.filter.size=[]
-            // state.filter.category=[]
-            // state.filter.color = []
-            // console.log(state.filter)
+
         },
         filterSelectRedux: (state, action) => {
             // alert(action.payload)
@@ -96,6 +98,12 @@ export const product = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { filterSelectRedux,clearFilterRedux,addLinks,updateLinks,setLinks} = product.actions
+export const { filterSelectRedux,
+    clearFilterRedux,
+    addLinks,
+    updateLinks,
+    setLinks,
+    getProducts
+} = product.actions
 
 export default product.reducer

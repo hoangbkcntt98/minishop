@@ -10,19 +10,37 @@ import Button from '../components/button/Button'
 import InfinityList from '../components/list/InfinityList'
 import NavLink from '../components/nav-link/NavLink'
 import { useSelector, useDispatch } from 'react-redux'
-import { addLinks, clearFilterRedux, filterSelectRedux, setLinks } from '../redux/product/ProductSlice'
+import { addLinks, clearFilterRedux, filterSelectRedux, getProducts, setLinks } from '../redux/product/ProductSlice'
 import SearchName from '../components/search/SearchName'
 import Breadcrumb from '../components/bread-cumb/BreadCumb'
-
+import productServices from '../services/productServices'
 const Catalog = () => {
     const filterState = useSelector((state) => state.product.filter)
+    const productRedux = useSelector((state) => state.product.products)
     const links = useSelector(state => state.product.links)
     const dispatch = useDispatch()
     const productList = productData.getAllProducts()
 
     const [products, setProducts] = useState(productList)
-
-
+    React.useEffect(()=>{
+        console.log([productRedux])
+    },[productRedux])
+    React.useEffect(()=>{
+        productServices.getProducts({page:1,page_size:10}).then((res) => {
+            dispatch(getProducts(res.data.data))
+        })
+        
+        dispatch(setLinks([{
+            display: "Product",
+            link: "/catalog"
+        }]))
+    },[])
+    // React.useEffect(()=>{
+    //     setData(productRedux)
+    // },[productRedux])
+    // React.useEffect(()=>{
+    //     console.log(data)
+    // },[data])
     const filterSelect = (type, checked, item) => {
         const filterData = {
             type: type,
@@ -61,7 +79,7 @@ const Catalog = () => {
         },
         [filterState, productList],
     )
-
+    
     useEffect(() => {
         updateProducts()
     }, [updateProducts])
@@ -72,17 +90,14 @@ const Catalog = () => {
         filterRef.current.classList.toggle('active')
         setOpen(!open)
     }
-    useEffect(()=>{
-        dispatch(setLinks([{
-            display:"Product",
-            link:"/catalog"
-        }]))
-    },[])
+    useEffect(() => {
+       
+    }, [])
     return (
         <Helmet title="Sản phẩm">
-             <Breadcrumb />
+            <Breadcrumb />
             <div className="catalog">
-               
+
                 <div className={open ? "catalog__filter__close show" : "catalog__filter__close"} onClick={showHideFilter}>
                     <i className="bx bx-x"></i>
                 </div>
@@ -142,8 +157,8 @@ const Catalog = () => {
                     <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__content">
                             <Button size="sm" onClick={() => {
-                                    dispatch(clearFilterRedux())
-                                }}>xóa bộ lọc</Button>
+                                dispatch(clearFilterRedux())
+                            }}>xóa bộ lọc</Button>
                         </div>
                     </div>
                 </div>

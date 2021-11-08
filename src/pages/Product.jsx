@@ -13,11 +13,11 @@ const Product = props => {
     const product = productData.getProductBySlug(props.match.params.slug)
 
     const relatedProducts = productData.getProducts(8)
-
+   
     React.useEffect(() => {
         window.scrollTo(0,0)
     }, [product])
-
+   
     return (
         <Helmet title={product.title}>
             <Section>

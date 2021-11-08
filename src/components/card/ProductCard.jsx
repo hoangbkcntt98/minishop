@@ -10,6 +10,8 @@ import { set } from '../../redux/product-modal/productModalSlice'
 import Button from '../button/Button'
 
 import numberWithCommas from '../../utils/numberWithCommas'
+import { Button as Btn, IconButton } from '@mui/material'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 const ProductCard = props => {
 
@@ -17,11 +19,36 @@ const ProductCard = props => {
 
     return (
         <div className="product-card">
-            <Link to={`/catalog/${props.slug}`}>
-                <div className="product-card__image">
+
+            <div className="product-card__image">
+                <Link to={`/catalog/${props.slug}`}>
                     <img src={props.img01} alt="" />
-                    <img src={props.img02} alt="" />
+                </Link>
+                {/* <img src={props.img02} alt="" /> */}
+                <div className="product-card__overlay">
+                    <div className="product-card__overlay__btns">
+                        <Button
+                            size="sm"
+                            icon="bx bx-cart"
+                            animate={true}
+                            onClick={() => dispatch(set(props.slug))}
+                        >
+                            Thêm vào giỏ
+                        </Button>
+                        <Link to={`/catalog/${props.slug}`}>
+                        <Button
+                            size="sm"
+                            icon="bx bx-search"
+                            animate={true}
+                            // onClick={() => dispatch(set(props.slug))}
+                        >
+                            Xem
+                        </Button>
+                        </Link>
+                    </div>
                 </div>
+            </div>
+            <Link to={`/catalog/${props.slug}`}>
                 <h3 className="product-card__name">{props.name}</h3>
                 <div className="product-card__price">
                     {numberWithCommas(props.price)}
@@ -30,16 +57,8 @@ const ProductCard = props => {
                     </span>
                 </div>
             </Link>
-            <div className="product-card__btn">
-                <Button
-                    size="sm"    
-                    icon="bx bx-cart"
-                    animate={true}
-                    onClick={() => dispatch(set(props.slug))}
-                >
-                    chọn mua
-                </Button>
-            </div>
+
+
         </div>
     )
 }

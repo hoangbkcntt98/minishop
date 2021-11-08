@@ -17,8 +17,12 @@ import Breadcrumb from '../components/bread-cumb/BreadCumb';
 import { setLinks } from '../redux/product/ProductSlice';
 import userServices from '../services/userServices';
 import { checkLength } from '../utils/checkLength';
-import { Status } from '../status';
-
+import { Status,checkStatus} from '../status';
+import { error,success,warn } from '../components/noti/noti';
+import CookieService from '../services/cookieServices';
+import {loginValidationSchema} from '../utils/validationSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, Controller } from 'react-hook-form';
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -36,23 +40,22 @@ const theme = createTheme();
 
 export default function Login() {
     const dispatch = useDispatch()
-    const [data,setData] = React.useState({
-        email:undefined,
-        password:undefined,
-    })
-    const {email,password} = data;
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(data)
-        userServices.login(data);
+   
+    const onSubmit = async (formData) => {
+        console.log(formData)
+        // alert('login')
+        let res = await userServices.login(formData);
+        console.log(res)
+       
     };
-    const handleEmail = (event) =>{
-        // console.log(event.target.value)
-        setData({...data,email:event.target.value})
-    }
-    const handlePassword = (e) =>{
-        setData({...data,password:e.target.value})
-    }
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        resolver: yupResolver(loginValidationSchema)
+    });
     React.useEffect(() => {
         dispatch(setLinks([{
             display: "Dang nhap",
@@ -76,14 +79,14 @@ export default function Login() {
                             p: 2,
                             
                             paddingBottom:3,
-                            boxShadow: "2px 2px 2px 2px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)",
+                            boxShadow: "2px 2px 2px 4px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)",
                         }}
                     >
                         <Typography component="h1" variant="h5">
                             Đăng Nhập Tài Khoản
                         </Typography>
 
-                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <Box component="form"  noValidate sx={{ mt: 1 }} style = {{display:'block',width:'90%'}}>
                             <hr className="login__hr-title" />
                             <div className="login__social">
                                 <button className="login__social__button login__social__button__fb">
@@ -108,26 +111,27 @@ export default function Login() {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Email Address"
+                                label="Địa chỉ Email"
                                 name="email"
-                                autoComplete="email"
-                                onChange={handleEmail}
+                                // onChange={handleEmail}
+                                {...register('email')}
+                                helperText={errors.email?.message}
+                                error={errors.email? true : false}
                                 autoFocus
                             />
-                            <TextField
+                             <TextField
                                 margin="normal"
                                 required
+                                type = "password"
                                 fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
                                 id="password"
-                                onChange={handlePassword}
-                                autoComplete="current-password"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
+                                label="Mật khẩu"
+                                name="password"
+                                // onChange={handlePassword}
+                                {...register('password')}
+                                helperText={errors.password?.message}
+                                error={errors.password ? true : false}
+                                autoFocus
                             />
                             <div className="login__button">
                                 <Button
@@ -135,6 +139,7 @@ export default function Login() {
                                     fullWidth
                                     variant="contained"
                                     // onClick={handleSubmit}
+                                    onClick={handleSubmit(onSubmit)}
                                     sx={{
                                         // mt: 3,
                                         // mb: 2,
