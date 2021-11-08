@@ -1,0 +1,14 @@
+.product-list{
+    // @include flex(center,center);
+    
+    &__pagination{
+        &__item{
+            >ul>li>button{
+                // background-color:$main-color !important;
+            }
+            
+        }
+        width: fit-content;
+        margin-left: 30%;
+    }
+}

@@ -4,7 +4,7 @@
     @include tablet {
         flex-direction: column;
     }
-
+    
     &__filter {
         width: 20%;
         margin-left: 3em;
@@ -61,6 +61,7 @@
             }
 
             &__content {
+              
                 padding-left: 1rem;
                 color: $txt-second-color;
                 &__item {
@@ -94,6 +95,16 @@
     }
 
     &__content {
+        width: 70%;
+        &__loading{
+           span{
+               border-color: $main-color !important;
+            //    color: $main-color;
+           }
+            // width: 100%;
+            // background-color: red !important;
+            @include flex(center,center);
+        }
         flex-grow: 1;
 
         @include tablet {

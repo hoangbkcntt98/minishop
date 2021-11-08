@@ -8,13 +8,22 @@ const initialState = {
         name:'',
     },
     links:[],
-    products:[]
+    products:[],
+    isLoading:false,
+    total_pages:1
 }
 
 export const product = createSlice({
     name: 'product',
     initialState,
     reducers: {
+        setLoading:(state,action) =>{
+            state.isLoading = action.payload
+            console.log(action.payload)
+        },
+        setTotalPage:(state,action) =>{
+            state.total_pages = action.payload
+        },
         getProducts:(state,action) =>{
             state.products = action.payload
         },
@@ -103,7 +112,9 @@ export const { filterSelectRedux,
     addLinks,
     updateLinks,
     setLinks,
-    getProducts
+    getProducts,
+    setLoading,
+    setTotalPage
 } = product.actions
 
 export default product.reducer

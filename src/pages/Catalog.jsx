@@ -10,37 +10,38 @@ import Button from '../components/button/Button'
 import InfinityList from '../components/list/InfinityList'
 import NavLink from '../components/nav-link/NavLink'
 import { useSelector, useDispatch } from 'react-redux'
-import { addLinks, clearFilterRedux, filterSelectRedux, getProducts, setLinks } from '../redux/product/ProductSlice'
+import { addLinks, clearFilterRedux, filterSelectRedux, getProducts, setLinks, setLoading, setTotalPage } from '../redux/product/ProductSlice'
 import SearchName from '../components/search/SearchName'
 import Breadcrumb from '../components/bread-cumb/BreadCumb'
 import productServices from '../services/productServices'
+import { css } from "@emotion/react";
+import ClipLoader from "react-spinners/ClipLoader";
+import { RingLoader } from 'react-spinners'
+import ProductList from '../components/list/ProductList'
+import MyPagination from '../components/list/MyPagination'
 const Catalog = () => {
     const filterState = useSelector((state) => state.product.filter)
     const productRedux = useSelector((state) => state.product.products)
     const links = useSelector(state => state.product.links)
+    const isLoading = useSelector(state => state.product.isLoading)
     const dispatch = useDispatch()
     const productList = productData.getAllProducts()
 
     const [products, setProducts] = useState(productList)
-    React.useEffect(()=>{
-        console.log([productRedux])
-    },[productRedux])
-    React.useEffect(()=>{
-        productServices.getProducts({page:1,page_size:10}).then((res) => {
-            dispatch(getProducts(res.data.data))
+    React.useEffect(() => {
+        dispatch(setLoading(true));
+        productServices.getProducts({ page: 1, page_size: 10 }).then((res) => {
+
+            dispatch(getProducts(res.data.data.products))
+            dispatch(setTotalPage(res.data.data.total_pages))
+            dispatch(setLoading(false))
         })
-        
+        // dispatch(setLoading(false))
         dispatch(setLinks([{
             display: "Product",
             link: "/catalog"
         }]))
-    },[])
-    // React.useEffect(()=>{
-    //     setData(productRedux)
-    // },[productRedux])
-    // React.useEffect(()=>{
-    //     console.log(data)
-    // },[data])
+    }, [])
     const filterSelect = (type, checked, item) => {
         const filterData = {
             type: type,
@@ -79,7 +80,7 @@ const Catalog = () => {
         },
         [filterState, productList],
     )
-    
+
     useEffect(() => {
         updateProducts()
     }, [updateProducts])
@@ -91,7 +92,7 @@ const Catalog = () => {
         setOpen(!open)
     }
     useEffect(() => {
-       
+
     }, [])
     return (
         <Helmet title="Sản phẩm">
@@ -168,10 +169,18 @@ const Catalog = () => {
                 <div className="catalog__content">
                     <SearchName
                     />
-                    {/* {filterState.name.length > 0 && <div>Kết quả tìm kiếm cho : {filterState.name.toUpperCase()}</div>} */}
-                    <InfinityList
-                        data={products}
-                    />
+                    {isLoading == true &&
+                        <div className="catalog__content__loading">
+                            <RingLoader loading={true} size={50} />
+                            <h3>Đang tải dữ liệu sản phẩm ....</h3>
+                        </div>
+                    }
+
+                    {productRedux.length > 0 && isLoading == false &&
+
+                        <ProductList data={productRedux} />
+                    }
+                    <MyPagination />
                 </div>
             </div>
         </Helmet>

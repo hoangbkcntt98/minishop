@@ -14,7 +14,7 @@ import { Button as Btn, IconButton } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
-const ProductCard = props => {
+const MyProductCard = props => {
 
     const dispatch = useDispatch()
 
@@ -23,7 +23,7 @@ const ProductCard = props => {
 
             <div className="product-card__image">
                 <Link to={`/catalog/${props.slug}`}>
-                    <img src={props.img01} alt="" />
+                    <img src={props.image} className = "product-card__image__fit"alt="" />
                 </Link>
                 {/* <img src={props.img02} alt="" /> */}
                 <div className="product-card__overlay">
@@ -64,12 +64,12 @@ const ProductCard = props => {
     )
 }
 
-ProductCard.propTypes = {
-    img01: PropTypes.string.isRequired,
-    img02: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    slug: PropTypes.string.isRequired,
-}
+// MyProductCard.propTypes = {
+//     img01: PropTypes.string.isRequired,
+//     img02: PropTypes.string.isRequired,
+//     name: PropTypes.string.isRequired,
+//     price: PropTypes.number.isRequired,
+//     slug: PropTypes.string.isRequired,
+// }
 
-export default ProductCard
+export default MyProductCard
