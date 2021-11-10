@@ -18,7 +18,7 @@ const ProductView = props => {
     const dispatch = useDispatch()
 
     let product = props.product
-
+    const content = "Sự hiện diện của những chiếc áo thun basic cổ tròn trong tủ đồ của bạn chính là chìa khóa giúp cho bạn có thêm nhiều outfit thú vị mà lại không cần đến quá nhiều món đồ. Áo thun nữ cotton cổ tròn basic chính là vũ khí tiện dụng cho các chị em trong trang phục hàng ngày!<br><br><br>Thiết kế đơn giản, form dáng tiện lợi của áo thun PPN4502. Tại sao chỉ với 1 chiếc áo thun nữ basic mà bạn có thể phối với 10 bộ độ khác nhau? Câu trả lời nằm ở chính sự đơn giản của chúng. Càng đơn giản, bạn lại càng dễ mix & match với những món đồ khác nhau.Áo thun nữ PPM4502 có thiết kế cổ tròn đơn giản, nhẹ nhàng tôn da. Tay cáo, form áo cũng không hề cầu kỳ, rất dễ mặc với nhiều thân hình khác nhau. Đặc biệt hơn, màu sắc của chiếc áo phông nữ cổ tròn này cũng rất nhã nhặn, trung tính, trơn màu. Sự tối giản từ thiết kế, đường may đến bảng màu giúp các chị em không cần đắn đo quá nhiều khi lựa chọn. Chất liệu cotton 95% được xử lý nghiêm ngặt, quy trình và công nghệ hiện đại nên mang tới cho chiếc áo sự thoải mái, mềm mại, thoáng mát ngay khi chạm vào. Cùng với đó, áo thun nữ cotton cổ tròn Yody có khả năng thâm shuts mồ hôi rất tốt nên người mặc không bị cảm giác bí bách, dính dính trên da khi đổ mồ hôi vào mùa hè. Bên cạnh đó, sản phẩm cũng chưa 5% spandex - loại sợi giúp co giãn, đàn hồi hiệu quả thích hợp mặc tới nhiều môi trường, ngay cả khi vận động <br><br><br> Sự hiện diện của những chiếc áo thun basic cổ tròn trong tủ đồ của bạn chính là chìa khóa giúp cho bạn có thêm nhiều outfit thú vị mà lại không cần đến quá nhiều món đồ. Áo thun nữ cotton cổ tròn basic chính là vũ khí tiện dụng cho các chị em trong trang phục hàng ngày!<br><br><br>Thiết kế đơn giản, form dáng tiện lợi của áo thun PPN4502. Tại sao chỉ với 1 chiếc áo thun nữ basic mà bạn có thể phối với 10 bộ độ khác nhau? Câu trả lời nằm ở chính sự đơn giản của chúng. Càng đơn giản, bạn lại càng dễ mix & match với những món đồ khác nhau.Áo thun nữ PPM4502 có thiết kế cổ tròn đơn giản, nhẹ nhàng tôn da. Tay cáo, form áo cũng không hề cầu kỳ, rất dễ mặc với nhiều thân hình khác nhau. Đặc biệt hơn, màu sắc của chiếc áo phông nữ cổ tròn này cũng rất nhã nhặn, trung tính, trơn màu. Sự tối giản từ thiết kế, đường may đến bảng màu giúp các chị em không cần đắn đo quá nhiều khi lựa chọn. Chất liệu cotton 95% được xử lý nghiêm ngặt, quy trình và công nghệ hiện đại nên mang tới cho chiếc áo sự thoải mái, mềm mại, thoáng mát ngay khi chạm vào. Cùng với đó, áo thun nữ cotton cổ tròn Yody có khả năng thâm shuts mồ hôi rất tốt nên người mặc không bị cảm giác bí bách, dính dính trên da khi đổ mồ hôi vào mùa hè. Bên cạnh đó, sản phẩm cũng chưa 5% spandex - loại sợi giúp co giãn, đàn hồi hiệu quả thích hợp mặc tới nhiều môi trường, ngay cả khi vận động" 
     if (product === undefined) product = {
         title: "",
         price: '',
@@ -107,105 +107,113 @@ const ProductView = props => {
 
     return (
         <div className="product">
-            <div className="product__images">
-                <div className="product__images__main">
-                    <img src={previewImg} alt="" />
+            <div className="product__image__info">
+                <div className="product__images">
+                    <div className="product__images__main">
+                        <img src={previewImg} alt="" />
+                    </div>
+                    <ImageSlider images={product.variations.map(item => {
+                        return {
+                            url: item.images[0],
+                            code: item.custom_id
+                        }
+                    })
+                    } />
+                    {/* <div className={`product-description ${descriptionExpand ? 'expand' : ''}`}>
+                        <div className="product-description__title">
+                            Chi tiết sản phẩm
+                        </div>
+                        <div className="product-description__content" dangerouslySetInnerHTML={{ __html: product.description }}></div>
+                        <div className="product-description__toggle">
+                            <Button size="sm" onClick={() => setDescriptionExpand(!descriptionExpand)}>
+                                {
+                                    descriptionExpand ? 'Thu gọn' : 'Xem thêm'
+                                }
+                            </Button>
+                        </div>
+                    </div> */}
                 </div>
-                {/* <div className="product__images__list">
-                    <div className="product__images__list__item" onClick={() => setPreviewImg(product.image01)}>
-                        <img src={product.image ? product.image : noImages} alt="" />
+                <div className="product__info">
+                    <h1 className="product__info__title">{product.name}</h1>
+                    <h2>Mã sản phẩm : {product.custom_id}</h2>
+                    <hr />
+                    <div className="product__info__item">
+                        <span className="product__info__item__price">
+                            {numberWithCommas(product.variations[0].retail_price)}
+                        </span>
                     </div>
-                    <div className="product__images__list__item" onClick={() => setPreviewImg(product.image02)}>
-                        <img src={product.image ? product.image : noImages} alt="" />
-                    </div>
-                </div> */}
-                <ImageSlider images = {product.variations.map(item => {
-                    return {
-                        url:item.images[0],
-                        code:item.custom_id
-                    }
-                })
-                }/>
-                <div className={`product-description ${descriptionExpand ? 'expand' : ''}`}>
-                    <div className="product-description__title">
-                        Chi tiết sản phẩm
-                    </div>
-                    <div className="product-description__content" dangerouslySetInnerHTML={{ __html: product.description }}></div>
-                    <div className="product-description__toggle">
-                        <Button size="sm" onClick={() => setDescriptionExpand(!descriptionExpand)}>
+                    <div className="product__info__item">
+                        <div className="product__info__item__title">
+                            Màu sắc
+                        </div>
+                        <div className="product__info__item__list">
                             {
-                                descriptionExpand ? 'Thu gọn' : 'Xem thêm'
+                                product.colors.map((item, index) => (
+                                    <div key={index} className={`product__info__item__list__item ${color === item ? 'active' : ''}`} onClick={() => setColor(item)}>
+                                        {/* <div className={`circle bg-main`}></div> */}
+                                        <div className="circle bg-main">{item}</div>
+                                    </div>
+                                ))
                             }
-                        </Button>
+                        </div>
+                    </div>
+                    <div className="product__info__item">
+                        <div className="product__info__item__title">
+                            Kích cỡ
+                        </div>
+                        <div className="product__info__item__list">
+                            {
+                                product.sizes.map((item, index) => (
+                                    <div key={index} className={`product__info__item__list__item ${size === item ? 'active' : ''}`} onClick={() => setSize(item)}>
+                                        <span className="product__info__item__list__item__size">
+                                            {item}
+                                        </span>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <div className="product__info__item">
+                        <div className="product__info__item__title">
+                            Số lượng
+                        </div>
+                        <div className="product__info__item__quantity">
+                            <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('minus')}>
+                                <i className="bx bx-minus"></i>
+                            </div>
+                            <div className="product__info__item__quantity__input">
+                                {quantity}
+                            </div>
+                            <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('plus')}>
+                                <i className="bx bx-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="product__info__item">
+                        <Button onClick={() => addToCart()}>thêm vào giỏ</Button>
+                        <Button onClick={() => goToCart()}>mua ngay</Button>
                     </div>
                 </div>
             </div>
-            <div className="product__info">
-                <h1 className="product__info__title">{product.name}</h1>
-                <h2>Mã sản phẩm : {product.custom_id}</h2>
-                <hr/>
-                <div className="product__info__item">
-                    <span className="product__info__item__price">
-                        {numberWithCommas(product.variations[0].retail_price)}
-                    </span>
+
+            <div className={`product-description ${descriptionExpand ? 'expand' : ''}`}>
+                <div className="product-description__title">
+                    Chi tiết sản phẩm
                 </div>
-                <div className="product__info__item">
-                    <div className="product__info__item__title">
-                        Màu sắc
-                    </div>
-                    <div className="product__info__item__list">
+                <div className="product-description__content" dangerouslySetInnerHTML={{ __html: content}}></div>
+                <div className="product-description__toggle">
+                    <Button size="sm" onClick={() => setDescriptionExpand(!descriptionExpand)}>
                         {
-                            product.colors.map((item, index) => (
-                                <div key={index} className={`product__info__item__list__item ${color === item ? 'active' : ''}`} onClick={() => setColor(item)}>
-                                    {/* <div className={`circle bg-main`}></div> */}
-                                    <div className="circle bg-main">{item}</div>
-                                </div>
-                            ))
+                            descriptionExpand ? 'Thu gọn' : 'Xem thêm'
                         }
-                    </div>
-                </div>
-                <div className="product__info__item">
-                    <div className="product__info__item__title">
-                        Kích cỡ
-                    </div>
-                    <div className="product__info__item__list">
-                        {
-                            product.sizes.map((item, index) => (
-                                <div key={index} className={`product__info__item__list__item ${size === item ? 'active' : ''}`} onClick={() => setSize(item)}>
-                                    <span className="product__info__item__list__item__size">
-                                        {item}
-                                    </span>
-                                </div>
-                            ))
-                        }
-                    </div>
-                </div>
-                <div className="product__info__item">
-                    <div className="product__info__item__title">
-                        Số lượng
-                    </div>
-                    <div className="product__info__item__quantity">
-                        <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('minus')}>
-                            <i className="bx bx-minus"></i>
-                        </div>
-                        <div className="product__info__item__quantity__input">
-                            {quantity}
-                        </div>
-                        <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('plus')}>
-                            <i className="bx bx-plus"></i>
-                        </div>
-                    </div>
-                </div>
-                <div className="product__info__item">
-                    <Button onClick={() => addToCart()}>thêm vào giỏ</Button>
-                    <Button onClick={() => goToCart()}>mua ngay</Button>
+                    </Button>
                 </div>
             </div>
             <div className={`product-description mobile ${descriptionExpand ? 'expand' : ''}`}>
                 <div className="product-description__title">
                     Chi tiết sản phẩm
                 </div>
-                <div className="product-description__content" dangerouslySetInnerHTML={{ __html: product.description }}></div>
+                <div className="product-description__content" dangerouslySetInnerHTML={{ __html: content}}></div>
                 <div className="product-description__toggle">
                     <Button size="sm" onClick={() => setDescriptionExpand(!descriptionExpand)}>
                         {

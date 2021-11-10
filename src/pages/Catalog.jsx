@@ -33,7 +33,7 @@ const Catalog = (props) => {
         dispatch(setLoading(true));
         // console.log(page)
         // let page = pageRedux?pageRedux:1;
-        productServices.getProducts({ page: page?page:1, page_size: 10 }).then((res) => {
+        productServices.getProducts({ page: page?page:1, page_size: 12 }).then((res) => {
 
             dispatch(setProducts(res.products))
             dispatch(setTotalPage(res.total_pages))

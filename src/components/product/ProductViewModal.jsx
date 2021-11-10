@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import ProductView from './ProductView'
+import ProductView from './MyProductview'
 
 import Button from '../button/Button'
 
@@ -19,10 +19,13 @@ const ProductViewModal = () => {
     const [product, setProduct] = useState(undefined)
 
     useEffect(() => {
-        if(productsRedux){
+        console.log(productSlug)
+        if(productSlug){
             let prod = productsRedux.find((item) => item.custom_id == productSlug)
+            console.log(prod)
             setProduct(prod)
         }else{
+            setProduct(undefined)
             console.log('empty select product');
         }
 
@@ -32,7 +35,7 @@ const ProductViewModal = () => {
     return (
         <div className={`product-view__modal ${product === undefined ? '' : 'active'}`}>
             <div className="product-view__modal__content">
-                <ProductView product={product}/>
+                {product&&<ProductView product={product}/>}
                 <div className="product-view__modal__content__close">
                     <Button
                         size="sm"    
