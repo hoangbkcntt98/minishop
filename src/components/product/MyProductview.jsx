@@ -119,19 +119,6 @@ const ProductView = props => {
                         }
                     })
                     } />
-                    {/* <div className={`product-description ${descriptionExpand ? 'expand' : ''}`}>
-                        <div className="product-description__title">
-                            Chi tiết sản phẩm
-                        </div>
-                        <div className="product-description__content" dangerouslySetInnerHTML={{ __html: product.description }}></div>
-                        <div className="product-description__toggle">
-                            <Button size="sm" onClick={() => setDescriptionExpand(!descriptionExpand)}>
-                                {
-                                    descriptionExpand ? 'Thu gọn' : 'Xem thêm'
-                                }
-                            </Button>
-                        </div>
-                    </div> */}
                 </div>
                 <div className="product__info">
                     <h1 className="product__info__title">{product.name}</h1>

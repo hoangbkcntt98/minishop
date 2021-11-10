@@ -33,7 +33,9 @@
         width: 100%;
         transform: translateX(-100%);
     }
-
+    &-mb{
+        margin-bottom: 1em;
+    }
     &-animate:hover &__txt {
         transform: translateX(100%);
     }

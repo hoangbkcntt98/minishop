@@ -8,10 +8,11 @@ const Button = props => {
     const size = props.size ? 'btn-' + props.size : ''
 
     const animate = props.animate ? 'btn-animate' : ''
+    const m = props.margin?'btn-' +props.margin:''
 
     return (
         <button
-            className={`btn ${bg} ${size} ${animate}`}
+            className={`btn ${bg} ${size} ${animate} ${m}`}
             onClick={props.onClick ? () => props.onClick() : null}
         >
             <span className="btn__txt">{props.children}</span>
