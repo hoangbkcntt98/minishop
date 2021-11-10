@@ -12,7 +12,7 @@ import Button from '../button/Button'
 import numberWithCommas from '../../utils/numberWithCommas'
 import { Button as Btn, IconButton } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-
+const noImages = require('../../assets/images/no-images.png').default;
 
 const MyProductCard = props => {
 
@@ -23,7 +23,7 @@ const MyProductCard = props => {
 
             <div className="product-card__image">
                 <Link to={`/catalog/${props.slug}`}>
-                    <img src={props.image} className = "product-card__image__fit"alt="" />
+                    <img src={props.image?props.image:noImages} className = "product-card__image__fit"alt="" />
                 </Link>
                 {/* <img src={props.img02} alt="" /> */}
                 <div className="product-card__overlay">
@@ -34,7 +34,7 @@ const MyProductCard = props => {
                             animate={true}
                             onClick={() => dispatch(set(props.slug))}
                         >
-                            Thêm vào giỏ
+                            Thêm vào giỏ 
                         </Button>
                         <Link to={`/catalog/${props.slug}`}>
                         <Button

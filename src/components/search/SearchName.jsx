@@ -9,7 +9,7 @@ const SearchName = () => {
     const [checkFilter,setCheck] = useState(false)
     useEffect(() => {
         //check
-        console.log(filterState)
+        // console.log(filterState)
         if(filterState.name.length>0||filterState.size.length>0||filterState.color.length>0){
             setCheck(true)
         }else{

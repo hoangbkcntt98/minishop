@@ -1,13 +1,16 @@
 .product {
+    box-shadow: 2px 2px 2px 4px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0, 0, 0, 0.12);
     @include flex(flex-start, flex-start);
-
+    // border   : 5px solid $main-color;
     @include mobile {
         flex-direction: column;
+        padding: 10px;
     }
-
+    padding: 3rem;
+    
     &__images {
         @include flex(flex-start, flex-start);
-        width: 60%;
+        width: 40%;
         flex-wrap: wrap;
 
         @include tablet {
@@ -17,49 +20,104 @@
         @include mobile {
             width: 100%;
         }
-
+        &__slide{
+            border: 3px solid $main-color;
+            width: 100%;
+            padding: 0.3rem;
+            margin: 2px;
+            @include flex(center,center);
+            &__item{
+                border: 1px solid $main-color   ;
+                // width: 50%;
+                // width: 50px;
+                p{
+                    @include mobile{
+                        font-size: 9px;
+                    }
+                    font-size: 10px;
+                }
+            }
+            img{
+                // width: 10px;
+                padding: 0.3em;
+            }
+        }
         &__list {
-            width: 20%;
-
+           
+            width: 100%;
+            display: flex;
+           
             &__item {
+                width: 20%;
+                flex-wrap: wrap;
+                border: 2px solid $main-color;
+                padding: 2px;
+                margin-bottom: 4px;
                 cursor: pointer;
             }
         }
 
         &__main {
             flex-grow: 1;
-            padding-top: 100%;
+            // padding-top: 100%;
+            border: 2px solid $main-color;
             position: relative;
-
+            padding:2em;
+            @include mobile{
+                padding: unset;
+            }
+            @include flex(flex-end,flex-end);
+            margin-bottom: 2rem;
+            // @include flex(center,center);
             img {
-                position: absolute;
-                top: 0;
-                left: 50%;
-                height: 100%;
-                transform: translateX(-50%);
+                width: 100%;
+                @include mobile{
+                    width: unset;
+                }
+                // position: absolute;
+                // top: 0;
+                // left: 50%;
+                // height: 100%;
+                // transform: translateX(-50%);
             }
         }
     }
 
     &__info {
         flex-grow: 1;
-        position: sticky;
-        top: $header-shrink-height;
-        padding-top: 2rem;
+        hr{
+            color: gray;
+            width: 90%;
+        }
+        h2{
+            // font-size: 10px;
+            font-weight: 100;
+            padding-top: 1rem;
+        }
+        
+        // position: sticky;
+        // top: $header-shrink-height;
+       
+        margin-left: 4rem;
 
         @include mobile {
+            padding-top: 2rem;
             position: relative;
             top: unset;
+            margin-left: unset;
         }
 
         &__title {
             font-size: 2.5rem;
             font-weight: normal;
+        
         }
 
         &__item {
             margin-top: 2rem;
-
+            @include mobile{
+                margin-top: 0.5rem;
+            }
             &__price {
                 color: $main-color;
                 font-size: 2rem;
@@ -78,8 +136,8 @@
                 &__item {
                     @include flex(center, center);
 
-                    width: 50px;
-                    height: 50px;
+                    width: 60px;
+                    height: 60px;
                     border-radius: 50%;
                     border: 2px solid $txt-second-color;
                     cursor: pointer;
@@ -91,7 +149,7 @@
                     }
 
                     &.active {
-                        border-color: $main-color;
+                        border-color: red;
                     }
 
                     &:hover {
@@ -99,8 +157,14 @@
                     }
 
                     .circle {
-                        width: 40px;
-                        height: 40px;
+                        text-align: center;
+                        padding: 2px;
+                        // margin: 2px;
+                        width: 50px;
+                        height: 50px;
+                        display: flex;
+                        align-items: center;
+                        text-align: center;
                         border-radius: 50%;
 
                         @include mobile {
@@ -110,6 +174,7 @@
                     }
 
                     &__size {
+                       
                         font-size: 1.5rem;
                         text-transform: uppercase;
                     }

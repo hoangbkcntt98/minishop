@@ -10,7 +10,7 @@ import Button from '../components/button/Button'
 import InfinityList from '../components/list/InfinityList'
 import NavLink from '../components/nav-link/NavLink'
 import { useSelector, useDispatch } from 'react-redux'
-import { addLinks, clearFilterRedux, filterSelectRedux, getProducts, setLinks, setLoading, setTotalPage } from '../redux/product/ProductSlice'
+import { addLinks, clearFilterRedux, filterSelectRedux, setProducts, product, setLinks, setLoading, setTotalPage } from '../redux/product/ProductSlice'
 import SearchName from '../components/search/SearchName'
 import Breadcrumb from '../components/bread-cumb/BreadCumb'
 import productServices from '../services/productServices'
@@ -19,29 +19,33 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { RingLoader } from 'react-spinners'
 import ProductList from '../components/list/ProductList'
 import MyPagination from '../components/list/MyPagination'
-const Catalog = () => {
+import queryString from 'query-string';
+const Catalog = (props) => {
     const filterState = useSelector((state) => state.product.filter)
     const productRedux = useSelector((state) => state.product.products)
     const links = useSelector(state => state.product.links)
     const isLoading = useSelector(state => state.product.isLoading)
     const dispatch = useDispatch()
     const productList = productData.getAllProducts()
+    const [page,setPage] = React.useState(queryString.parse(props.location.search).page);
 
-    const [products, setProducts] = useState(productList)
     React.useEffect(() => {
         dispatch(setLoading(true));
-        productServices.getProducts({ page: 1, page_size: 10 }).then((res) => {
+        // console.log(page)
+        // let page = pageRedux?pageRedux:1;
+        productServices.getProducts({ page: page?page:1, page_size: 10 }).then((res) => {
 
-            dispatch(getProducts(res.data.data.products))
-            dispatch(setTotalPage(res.data.data.total_pages))
+            dispatch(setProducts(res.products))
+            dispatch(setTotalPage(res.total_pages))
             dispatch(setLoading(false))
         })
         // dispatch(setLoading(false))
         dispatch(setLinks([{
-            display: "Product",
+            display: "Sản phẩm",
             link: "/catalog"
         }]))
-    }, [])
+        window.scroll(0, 0)
+    }, [page])
     const filterSelect = (type, checked, item) => {
         const filterData = {
             type: type,
@@ -76,7 +80,7 @@ const Catalog = () => {
                     return check !== undefined
                 })
             }
-            setProducts(temp)
+            // setProducts(temp)
         },
         [filterState, productList],
     )
@@ -180,7 +184,8 @@ const Catalog = () => {
 
                         <ProductList data={productRedux} />
                     }
-                    <MyPagination />
+                    <MyPagination page = {page?Number(page):1} setPage = {setPage} 
+                    />
                 </div>
             </div>
         </Helmet>

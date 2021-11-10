@@ -7,22 +7,68 @@ import ProductCard from '../components/card/ProductCard'
 import ProductView from '../components/product/ProductView'
 
 import productData from '../assets/fake-data/products'
-
+import {useDispatch,useSelector} from 'react-redux'
+import productServices from '../services/productServices'
+import { getProduct, updateLinks } from '../redux/product/ProductSlice'
+import MyProductCard from '../components/card/MyProductCard'
+import MyProductview from '../components/product/MyProductview'
+import Breadcrumb from '../components/bread-cumb/BreadCumb'
+const noImages = require('../assets/images/no-images.png').default
 const Product = props => {
 
-    const product = productData.getProductBySlug(props.match.params.slug)
+    // const product = productData.getProductBySlug(props.match.params.slug)
+    const productRedux = useSelector(state => state.product.products)
+    const [product,setProduct] = React.useState();
+    const [relatedProducts,setRelatedProducts] = React.useState();
+    // const relatedProducts = productData.getProducts(8)
+    const dispatch = useDispatch();
+    React.useEffect(()=>{
+        console.log(product)
+    },[product])
+    React.useEffect(()=>{
+        let search = props.match.params.slug
+        let relate = search.substring(0,2)
+        if(productRedux&&productRedux.length>0){
+            setProduct(productRedux.filter(item => item.custom_id == props.match.params.slug)[0])
+            productServices.getProduct(relate).then(res =>{
+                // dispatch(setProduct(res.product));
+                // console.log(res.product[0]);
+                let p = res.product.filter(item => item.custom_id == search)
+                let relatedP = res.product.filter(item => item.custom_id !=search)
+                console.log(p)
+                // setProduct(p[0])
+                setRelatedProducts(relatedP)
 
-    const relatedProducts = productData.getProducts(8)
-   
-    React.useEffect(() => {
-        window.scrollTo(0,0)
-    }, [product])
+            })
+        }else{
+            productServices.getProduct(relate).then(res =>{
+                // dispatch(setProduct(res.product));
+                // console.log(res.product[0]);
+                let p = res.product.filter(item => item.custom_id == search)
+                let relatedP = res.product.filter(item => item.custom_id !=search)
+                console.log(p)
+                setProduct(p[0])
+                setRelatedProducts(relatedP)
+
+            })
+        }
+        dispatch(updateLinks({
+            display:'Sản Phẩm',
+            link:localStorage.getItem('page')?'/catalog?page='+localStorage.getItem('page'):'/catalog'
+        }))
+    },[product])
    
     return (
-        <Helmet title={product.title}>
+        <React.Fragment>
+            {product&&
+             <Helmet title={product.name}>
+                 <Breadcrumb />
             <Section>
+                
                 <SectionBody>
-                    <ProductView product={product}/>
+                 
+                <MyProductview product ={product}/>
+                    {/* <ProductView product={product}/> */}
                 </SectionBody>
             </Section>
             <Section>
@@ -37,21 +83,24 @@ const Product = props => {
                         gap={20}
                     >
                         {
-                            relatedProducts.map((item, index) => (
-                                <ProductCard
-                                    key={index}
-                                    img01={item.image01}
-                                    img02={item.image02}
-                                    name={item.title}
-                                    price={Number(item.price)}
-                                    slug={item.slug}
-                                />   
+                            relatedProducts&&relatedProducts.map((item, index) => (
+                                <MyProductCard
+                                key={index}
+                                image={item.image?item.image:noImages}
+                                name={item.name}
+                                price={Number(item.variations[0].retail_price)}
+                                slug={item.custom_id}
+                            />
                             ))
                         }
                     </Grid>
                 </SectionBody>
             </Section>
         </Helmet>
+            }
+        </React.Fragment>
+        
+       
     )
 }
 

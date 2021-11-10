@@ -51,7 +51,7 @@ const AutoSuggest = () => {
             }
         })
         rs = rs.filter(item => item!=undefined&&item.products!=undefined)
-        console.log(rs)
+        // console.log(rs)
         return rs;
     }
 

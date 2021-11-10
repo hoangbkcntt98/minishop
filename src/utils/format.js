@@ -10,3 +10,11 @@ export const formatRespone = (res) =>{
 
     return temp
 }
+export const formatProduct = (product) =>{
+    return {
+        slug:product.custom_id,
+        image:product.image,
+        name:product.name,
+        
+    }
+}

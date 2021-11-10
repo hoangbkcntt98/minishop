@@ -19,9 +19,9 @@ export default function Breadcrumb(props) {
         history.push(item.link);
     }
     let links = useSelector(state=>state.product.links)
-    useEffect(()=>{
-        console.log(links)
-    },[links])
+    // useEffect(()=>{
+    //     console.log(links)
+    // },[links])
     let dispatch = useDispatch()
     // const { links } = props
     return (

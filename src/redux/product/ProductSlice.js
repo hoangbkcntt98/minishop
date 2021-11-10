@@ -10,13 +10,19 @@ const initialState = {
     links:[],
     products:[],
     isLoading:false,
-    total_pages:1
+    page:undefined,
+    total_pages:1,
+    product:'',
 }
 
 export const product = createSlice({
     name: 'product',
     initialState,
     reducers: {
+        setPage:(state,action) =>{
+            state.page = action.payload
+
+        },
         setLoading:(state,action) =>{
             state.isLoading = action.payload
             console.log(action.payload)
@@ -24,8 +30,14 @@ export const product = createSlice({
         setTotalPage:(state,action) =>{
             state.total_pages = action.payload
         },
-        getProducts:(state,action) =>{
+        setProducts:(state,action) =>{
             state.products = action.payload
+        },
+        setProduct:(state,action) =>{
+            state.product = state.products.find(item => item.custom_id ==action.payload)
+        },
+        getProduct:(state,action)=>{
+            return state.product
         },
         clearFilterRedux:(state,action) => {
             const temp = action.payload
@@ -112,9 +124,12 @@ export const { filterSelectRedux,
     addLinks,
     updateLinks,
     setLinks,
-    getProducts,
+    setProducts,
     setLoading,
-    setTotalPage
+    setTotalPage,
+    setProduct,
+    getProduct,
+    setPage
 } = product.actions
 
 export default product.reducer
