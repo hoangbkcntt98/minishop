@@ -44,13 +44,17 @@ const Product = props => {
 
             })
         } else {
+            productServices.getProduct(search).then(res => {
+                setProduct(res.product[0])
+            }, [])
             productServices.getProduct(relate).then(res => {
                 // dispatch(setProduct(res.product));
-                // console.log(res.product[0]);
+                // console.log(res);
+                // console.log(search)
                 let p = res.product.filter(item => item.custom_id == search)
                 let relatedP = res.product.filter(item => item.custom_id != search)
                 console.log(p)
-                setProduct(p[0])
+                // setProduct(p[0])
                 setRelatedProducts(relatedP)
 
             })
@@ -69,10 +73,8 @@ const Product = props => {
 
         ]))
 
-    }, [product])
-    const back = () =>{
-        console.log('back')
-    }
+    }, [])
+
     return (
         <React.Fragment>
             {product &&
@@ -82,17 +84,17 @@ const Product = props => {
                     <Section>
 
                         <SectionBody>
-                        <Button
-                            size="sm"
-                            icon="bx bx-arrow-back"
-                            animate={true}
-                            margin={'mb'}
-                            onClick={() => {
-                               window.history.back()
-                            }}
-                        >
-                            Trở về
-                        </Button>
+                            <Button
+                                size="sm"
+                                icon="bx bx-arrow-back"
+                                animate={true}
+                                margin={'mb'}
+                                onClick={() => {
+                                    window.history.back()
+                                }}
+                            >
+                                Trở về
+                            </Button>
                             <MyProductview product={product} />
                             {/* <ProductView product={product}/> */}
                         </SectionBody>

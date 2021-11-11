@@ -18,14 +18,16 @@ const Cart = () => {
     const cartItems = useSelector((state) => state.cartItems.value)
     const dispatch = useDispatch()
 
-    const [cartProducts, setCartProducts] = useState(productData.getCartItemsInfo(cartItems))
+    const [cartProducts, setCartProducts] = useState((cartItems))
 
     const [totalProducts, setTotalProducts] = useState(0)
 
     const [totalPrice, setTotalPrice] = useState(0)
-
+    
     useEffect(() => {
-        setCartProducts(productData.getCartItemsInfo(cartItems))
+        // localStorage.removeItem('cartItems')
+        console.log(cartItems)
+        setCartProducts(cartItems)
         setTotalPrice(cartItems.reduce((total, item) => total + (Number(item.quantity) * Number(item.price)), 0))
         setTotalProducts(cartItems.reduce((total, item) => total + Number(item.quantity), 0))
         dispatch(setLinks([{

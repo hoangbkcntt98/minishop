@@ -40,6 +40,31 @@ const ProductView = props => {
     const [size, setSize] = useState(undefined)
 
     const [quantity, setQuantity] = useState(1)
+    const [rage ,setRage] = useState({
+        min:0,
+        max:0,
+        avg:0
+    }); 
+    useEffect(()=>{
+        if(product){
+            let variationsPrice = product.variations.map(item => item.retail_price);
+            let min=Math.min(...variationsPrice),
+                max=Math.max(...variationsPrice)
+            if(max!=min){
+                setRage({
+                    min:min,
+                    max:max
+                })
+            }else{
+                setRage({
+                    ...rage,
+                    avg:min
+                })
+            }
+            
+
+        }
+    },[product])
 
     const updateQuantity = (type) => {
         if (type === 'plus') {
@@ -72,29 +97,37 @@ const ProductView = props => {
 
     const addToCart = () => {
         if (check()) {
+            let variation = product.variations.find(item => item.color == color&&size ==size)
+            console.log(variation)
             let newItem = {
-                slug: product.slug,
+                slug: product.custom_id,
                 color: color,
                 size: size,
-                price: product.price,
-                quantity: quantity
+                price: variation.retail_price,
+                quantity: quantity,
+                image : variation.images[0],
+                name: product.name
             }
             if (dispatch(addItem(newItem))) {
                 success('Them vao gio hang thanh cong!')
             } else {
-                warn('Fail')
+                warn('The mat hang that bai')
             }
         }
     }
 
     const goToCart = () => {
         if (check()) {
+            let variation = product.variations.find(item => item.color == color&&size ==size)
+            console.log(variation)
             let newItem = {
                 slug: product.custom_id,
                 color: color,
                 size: size,
-                price: product.price,
-                quantity: quantity
+                price: variation.retail_price,
+                quantity: quantity,
+                image : variation.images[0],
+                name: product.name
             }
             if (dispatch(addItem(newItem))) {
                 dispatch(remove())
@@ -112,7 +145,7 @@ const ProductView = props => {
                     <div className="product__images__main">
                         <img src={previewImg} alt="" />
                     </div>
-                    <ImageSlider images={product.variations.map(item => {
+                    <ImageSlider setImage = {setPreviewImg} images={product.variations.map(item => {
                         return {
                             url: item.images[0],
                             code: item.custom_id
@@ -126,7 +159,8 @@ const ProductView = props => {
                     <hr />
                     <div className="product__info__item">
                         <span className="product__info__item__price">
-                            {numberWithCommas(product.variations[0].retail_price)}
+                            {rage.avg==0?numberWithCommas(rage.min)+'-'+numberWithCommas(rage.max):numberWithCommas(rage.avg)}
+                            {/* {numberWithCommas(product.variations[0].retail_price)+' - '+numberWithCommas(product.variations[0].retail_price)} */}
                         </span>
                     </div>
                     <div className="product__info__item">
