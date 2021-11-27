@@ -21,7 +21,7 @@ const ProductList = (props) => {
                         data.map((item, index) => (
                             <MyProductCard
                                 key={index}
-                                image={item.image?item.image:noImages}
+                                image={item.variations[0].images[0]?item.variations[0].images[0]:noImages}
                                 name={item.name}
                                 price={Number(item.variations[0].retail_price)}
                                 slug={item.custom_id}

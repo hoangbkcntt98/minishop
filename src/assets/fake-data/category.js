@@ -1,15 +1,15 @@
 const category = [
     {
-        display: "Áo thun",
-        categorySlug: "ao-thun"
+        display: "Áo",
+        categorySlug: "A"
     },
     {
-        display: "Áo somi",
-        categorySlug: "ao-somi"
+        display: "Vay",
+        categorySlug: "Vay"
     },
     {
-        display: "Quần jean",
-        categorySlug: "quan-jean"
+        display: "Set Bo",
+        categorySlug: "SB"
     }
 ]
 

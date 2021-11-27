@@ -31,10 +31,8 @@ const Catalog = (props) => {
 
     React.useEffect(() => {
         dispatch(setLoading(true));
-        // console.log(page)
-        // let page = pageRedux?pageRedux:1;
         productServices.getProducts({ page: page?page:1, page_size: 12 }).then((res) => {
-
+            
             dispatch(setProducts(res.products))
             dispatch(setTotalPage(res.total_pages))
             dispatch(setLoading(false))

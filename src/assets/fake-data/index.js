@@ -1,28 +1,28 @@
 const initIndex = [
     {
         root: "Ao",
-        code: "shirt",
+        code: "a",
         open: false,
         child: [
             {
-                display: "Áo thun",
-                categorySlug: "ao-thun"
+                display: "Áo",
+                categorySlug: "A"
             },
             {
-                display: "Áo somi",
-                categorySlug: "ao-somi"
+                display: "Ao Choang",
+                categorySlug: "AC"
             },
 
         ]
     },
     {
-        root: "Quan",
-        code: "pant",
+        root: "Set Bo",
+        code: "sb",
         open: false,
         child: [
             {
-                display: "Quần jean",
-                categorySlug: "quan-jean"
+                display: "Set Bo",
+                categorySlug: "SB"
             }
         ]
     }

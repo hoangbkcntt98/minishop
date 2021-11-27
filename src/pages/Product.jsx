@@ -32,29 +32,50 @@ const Product = props => {
         let search = props.match.params.slug
         let relate = search.substring(0, 2)
         if (productRedux && productRedux.length > 0) {
-            setProduct(productRedux.filter(item => item.custom_id == props.match.params.slug)[0])
+            let temp = productRedux.filter(item => item.custom_id == props.match.params.slug)[0]
+            temp = JSON.parse(JSON.stringify(temp))
+            temp.colors = temp.colors 
+            temp.sizes = temp.sizes 
+            temp.image = temp.variations[0].images[0]
+            setProduct(temp)
             productServices.getProduct(relate).then(res => {
-                // dispatch(setProduct(res.product));
-                // console.log(res.product[0]);
-                let p = res.product.filter(item => item.custom_id == search)
                 let relatedP = res.product.filter(item => item.custom_id != search)
-                console.log(p)
+                relatedP = relatedP.map(item => {
+                    let temp = JSON.parse(JSON.stringify(item))
+                    temp.image = temp.variations[0].images[0]
+                    return temp
+                })
                 // setProduct(p[0])
                 setRelatedProducts(relatedP)
 
             })
         } else {
             productServices.getProduct(search).then(res => {
-                setProduct(res.product[0])
+                let temp = JSON.parse(JSON.stringify(res.product[0]))
+                // let colors = temp.product_attributes.find(item => item.name == "Màu")
+                // let sizes = temp.product_attributes.find(item => item.name == "Size")
+                // temp.colors = colors ? colors.values : ["Free"]
+                // temp.sizes = sizes ? sizes.values : ["Free"]
+                // if (temp.colors == ["Free"]) {
+                //     temp.variations.forEach(item => {
+                //         item.fields = [...item.fields, {
+                //             name: "Màu",
+                //             values: ["Free"]
+                //         }]
+                //     });
+                // }
+                temp.image = temp.variations[0].images[0]
+                setProduct(temp)
             }, [])
             productServices.getProduct(relate).then(res => {
-                // dispatch(setProduct(res.product));
-                // console.log(res);
-                // console.log(search)
                 let p = res.product.filter(item => item.custom_id == search)
                 let relatedP = res.product.filter(item => item.custom_id != search)
                 console.log(p)
-                // setProduct(p[0])
+                relatedP = relatedP.map(item => {
+                    let temp = JSON.parse(JSON.stringify(item))
+                    temp.image = temp.variations[0].images[0]
+                    return temp
+                })
                 setRelatedProducts(relatedP)
 
             })

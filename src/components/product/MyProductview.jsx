@@ -50,6 +50,9 @@ const ProductView = props => {
             let variationsPrice = product.variations.map(item => item.retail_price);
             let min=Math.min(...variationsPrice),
                 max=Math.max(...variationsPrice)
+            //set colors for product
+            // product.colors = product.product_attributes[0].map(item => item.values )
+            // product.size = product.product_attributes[1].map(item => item.values )
             if(max!=min){
                 setRage({
                     min:min,
@@ -97,44 +100,60 @@ const ProductView = props => {
 
     const addToCart = () => {
         if (check()) {
-            let variation = product.variations.find(item => item.color == color&&size ==size)
-            console.log(variation)
-            let newItem = {
-                slug: product.custom_id,
-                color: color,
-                size: size,
-                price: variation.retail_price,
-                quantity: quantity,
-                image : variation.images[0],
-                name: product.name
+            
+            let variation = product.variations.find(item => {
+                return item.color == color&&item.size == size
+            })
+            if(!variation){
+                warn("Mat hang nay da het")
+            }else{
+                console.log('varitaion',variation)
+                let newItem = {
+                    slug: product.custom_id,
+                    color: color,
+                    size: size,
+                    price: variation.retail_price,
+                    quantity: quantity,
+                    image : variation.images[0],
+                    name: product.name
+                }
+                if (dispatch(addItem(newItem))) {
+                    success('Them vao gio hang thanh cong!')
+                } else {
+                    warn('The mat hang that bai')
+                }
             }
-            if (dispatch(addItem(newItem))) {
-                success('Them vao gio hang thanh cong!')
-            } else {
-                warn('The mat hang that bai')
-            }
+          
+            
         }
     }
 
     const goToCart = () => {
         if (check()) {
-            let variation = product.variations.find(item => item.color == color&&size ==size)
+            let variation = product.variations.find(item => {
+                return item.color == color && item.size == size;
+            })
             console.log(variation)
-            let newItem = {
-                slug: product.custom_id,
-                color: color,
-                size: size,
-                price: variation.retail_price,
-                quantity: quantity,
-                image : variation.images[0],
-                name: product.name
+            if(!variation){
+                warn("Mat hang nay da het")
+            }else{
+                let newItem = {
+                    slug: product.custom_id,
+                    color: color,
+                    size: size,
+                    price: variation.retail_price,
+                    quantity: quantity,
+                    image : variation.images[0],
+                    name: product.name
+                }
+                if (dispatch(addItem(newItem))) {
+                    dispatch(remove())
+                    props.history.push('/cart')
+                } else {
+                    alert('Fail')
+                }
             }
-            if (dispatch(addItem(newItem))) {
-                dispatch(remove())
-                props.history.push('/cart')
-            } else {
-                alert('Fail')
-            }
+            
         }
     }
 
@@ -169,7 +188,7 @@ const ProductView = props => {
                         </div>
                         <div className="product__info__item__list">
                             {
-                                product.colors.map((item, index) => (
+                                product.colors&&product.colors.map((item, index) => (
                                     <div key={index} className={`product__info__item__list__item ${color === item ? 'active' : ''}`} onClick={() => setColor(item)}>
                                         {/* <div className={`circle bg-main`}></div> */}
                                         <div className="circle bg-main">{item}</div>
@@ -184,7 +203,7 @@ const ProductView = props => {
                         </div>
                         <div className="product__info__item__list">
                             {
-                                product.sizes.map((item, index) => (
+                                product.sizes&&product.sizes.map((item, index) => (
                                     <div key={index} className={`product__info__item__list__item ${size === item ? 'active' : ''}`} onClick={() => setSize(item)}>
                                         <span className="product__info__item__list__item__size">
                                             {item}

@@ -7,13 +7,14 @@ const productServices = {
     async getProducts(params){
 
         let rs = await services.get('products',params);
-        // console.log(rs)
-        return rs.data.data
+        console.log(rs)
+        return rs.data.content
+        // return rs.data.data
     },
     async getProduct(params){
-        let rs = await services.get('products/'+params);
-        // console.log(rs)
-        return rs.data.data
+        let rs = await services.get('products/find/'+params);
+        console.log(rs)
+        return rs.data.content        // return rs.data.data
     }
   
 }   
