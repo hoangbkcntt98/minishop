@@ -13,12 +13,24 @@ const initialState = {
     page:undefined,
     total_pages:1,
     product:'',
+    categories:[],
+    colors:[],
+    sizes:[]
 }
 
 export const product = createSlice({
     name: 'product',
     initialState,
     reducers: {
+        setSizesRedux: (state,action) =>{
+            state.sizes = action.payload
+        },
+        setColorsRedux: (state,action) =>{
+            state.colors = action.payload
+        },
+        setCategories: (state,action) =>{
+            state.categories = action.payload
+        },
         setPage:(state,action) =>{
             state.page = action.payload
 
@@ -53,6 +65,7 @@ export const product = createSlice({
             var category = filter.category
             var color = state.filter.color
             var size = filter.size
+            var products = state.products
             // alert(checked)
             if (checked==true) {
                 // if(type == "COLOR"){
@@ -119,7 +132,11 @@ export const product = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { filterSelectRedux,
+export const { 
+    filterSelectRedux,
+    setSizesRedux,
+    setColorsRedux,
+    setCategories,
     clearFilterRedux,
     addLinks,
     updateLinks,

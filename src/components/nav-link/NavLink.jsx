@@ -3,10 +3,71 @@ import React, { useEffect, useState } from 'react'
 import NavLinkItem from './NavLinkItem';
 import { useSelector, useDispatch } from 'react-redux'
 import initIndex from '../../assets/fake-data/index'
-import { filterSelectRedux } from '../../redux/product/ProductSlice';
+import { filterSelectRedux, setCategories } from '../../redux/product/ProductSlice';
+import productServices from '../../services/productServices';
 const NavLink = (props) => {
     const dispatch = useDispatch()
-    const [index, setIndexs] = useState(initIndex)
+    const [index, setIndexs] = useState([])
+
+    React.useEffect(() => {
+        productServices.getProductAttributes({ type: "CATE" }).then(res => {
+            let initIndex = [
+                {
+                    root: "Áo",
+                    categorySlug: "a",
+                    type: 1,
+                    open: false,
+                    child: []
+                },
+                {
+                    root: "Quần",
+                    categorySlug: "q",
+                    open: false,
+                    child: [],
+                    type: 2
+                },
+                {
+                    root: "Váy",
+                    categorySlug: "a",
+                    open: false,
+                    child: [],
+                    type: 3
+                },
+                
+                {
+                    root: "Set",
+                    categorySlug: "S",
+                    // type: 4,
+                    open: false,
+                    child: []
+                },
+                {
+                    root: "Khác",
+                    categorySlug: "OTHER",
+                    open: false,
+                    child: [],
+                    
+                },
+            ]
+            initIndex = initIndex.map(item => {
+                let child = res.filter(c => c.sub_type == item.type).map(val => {
+                    return {
+                        display: val.display,
+                        categorySlug: val.code
+                    }
+                })
+                item.child = child
+                return item
+            })
+            setIndexs(initIndex)
+            dispatch(setCategories(initIndex))
+        })
+
+    }, [])
+    const [data, setData] = useState()
+    // React.useEffect(()=>{
+    //     console.log('data',data);
+    // },[data])
     const show = (item) => {
         let temp = clone(index);
         for (let val of temp) {
@@ -17,22 +78,18 @@ const NavLink = (props) => {
         }
         setIndexs(temp)
     }
+
     const update = (type, item) => {
+    
         // filterFunc("INDEX",true,[])
+        console.log(item)
         const filterData = {
-            type:type,
-            checked:true,
-            item:item.child?item.child.map(data => data.categorySlug):item.categorySlug,
+            type: type,
+            checked: true,
+            item: item.child&&item.child.length>0 ? item.child.map(data => data.categorySlug) : [item.categorySlug],
         }
+        console.log(filterData)
         dispatch(filterSelectRedux(filterData))
-        // if(type =="index"){
-        //     dispatch(filterSelectRedux("INDEX", true, item.child.map(d => d.categorySlug)))
-        // }
-        // if(type =="category"){
-        //     // filterSelectRedux("CATEGORY",true,item)
-        //     filterSelectRedux("INDEX", true, [item.categorySlug])
-        // }
-           
 
     }
     const clone = (item) => {

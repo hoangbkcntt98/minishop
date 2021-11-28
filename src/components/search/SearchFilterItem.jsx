@@ -1,11 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearFilterRedux, filterSelectRedux } from '../../redux/product/ProductSlice'
-import colors from '../../assets/fake-data/product-color'
-import size from '../../assets/fake-data/product-size'
+// import colors from '../../assets/fake-data/product-color'
+// import size from '../../assets/fake-data/product-size'
 const SearchFilterItem = (props) => {
     const dispatch = useDispatch()
     const filterState = useSelector(state => state.product.filter)
+    const colors = useSelector(state => state.product.colors)
+    const size = useSelector(state => state.product.sizes)
     const getColor = (color) => {
         let rs = colors.find(item => item.color == color)
         return rs.display

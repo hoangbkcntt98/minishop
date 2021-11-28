@@ -52,18 +52,7 @@ const Product = props => {
         } else {
             productServices.getProduct(search).then(res => {
                 let temp = JSON.parse(JSON.stringify(res.product[0]))
-                // let colors = temp.product_attributes.find(item => item.name == "Màu")
-                // let sizes = temp.product_attributes.find(item => item.name == "Size")
-                // temp.colors = colors ? colors.values : ["Free"]
-                // temp.sizes = sizes ? sizes.values : ["Free"]
-                // if (temp.colors == ["Free"]) {
-                //     temp.variations.forEach(item => {
-                //         item.fields = [...item.fields, {
-                //             name: "Màu",
-                //             values: ["Free"]
-                //         }]
-                //     });
-                // }
+
                 temp.image = temp.variations[0].images[0]
                 setProduct(temp)
             }, [])

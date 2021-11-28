@@ -22,9 +22,9 @@ const NavLinkItem = (props) => {
                             }} title={title.root}><i class="fa fa-caret-right" aria-hidden="true"></i>{title.root}</a>
                     </div>
 
-                    <div class="nav-link__item__root__dropdown__btn">
+                    {title.child.length>0&&<div class="nav-link__item__root__dropdown__btn">
                         <i class="bx bx-chevron-down" onClick={() =>showDropdown(title.root)}></i>
-                    </div>
+                    </div>}
                 </div>
 
                 <ul class={open ? 'nav-link__dropdown__show' : 'nav-link__dropdown'} >

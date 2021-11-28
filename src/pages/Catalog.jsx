@@ -4,13 +4,13 @@ import Helmet from '../components/helmet/Helmet'
 import CheckBox from '../components/checkbox/CheckBox'
 
 import productData from '../assets/fake-data/products'
-import colors from '../assets/fake-data/product-color'
-import size from '../assets/fake-data/product-size'
+// import colors from '../assets/fake-data/product-color'
+// import size from '../assets/fake-data/product-size'
 import Button from '../components/button/Button'
 import InfinityList from '../components/list/InfinityList'
 import NavLink from '../components/nav-link/NavLink'
 import { useSelector, useDispatch } from 'react-redux'
-import { addLinks, clearFilterRedux, filterSelectRedux, setProducts, product, setLinks, setLoading, setTotalPage } from '../redux/product/ProductSlice'
+import { addLinks, clearFilterRedux, filterSelectRedux, setProducts, product, setLinks, setLoading, setTotalPage, setProduct, setColorsRedux, setSizesRedux } from '../redux/product/ProductSlice'
 import SearchName from '../components/search/SearchName'
 import Breadcrumb from '../components/bread-cumb/BreadCumb'
 import productServices from '../services/productServices'
@@ -20,21 +20,48 @@ import { RingLoader } from 'react-spinners'
 import ProductList from '../components/list/ProductList'
 import MyPagination from '../components/list/MyPagination'
 import queryString from 'query-string';
+import MyInfinityList from '../components/list/MyInfinityList'
 const Catalog = (props) => {
     const filterState = useSelector((state) => state.product.filter)
     const productRedux = useSelector((state) => state.product.products)
+    const [productList, setProductList] = useState(productRedux)
     const links = useSelector(state => state.product.links)
     const isLoading = useSelector(state => state.product.isLoading)
+    const [colors,setColors] = useState([])
+    const [size,setSize] = useState([])
     const dispatch = useDispatch()
-    const productList = productData.getAllProducts()
-    const [page,setPage] = React.useState(queryString.parse(props.location.search).page);
-
+    // const productList = productData.getAllProducts()
+    const [page, setPage] = React.useState(queryString.parse(props.location.search).page);
+    useEffect(()=>{
+        setProductList(productRedux)
+    },[productRedux])
     React.useEffect(() => {
         dispatch(setLoading(true));
-        productServices.getProducts({ page: page?page:1, page_size: 12 }).then((res) => {
-            
+        productServices.getProductAttributes({type:"COLOR"}).then(res =>{
+            // console.log(res)
+            let temp = res.map(r => {
+                return {
+                    display:r.display,
+                    color:r.code
+                }
+            })
+            setColors(temp)
+            dispatch(setColorsRedux(temp))
+        })
+        productServices.getProductAttributes({type:"SIZE"}).then(res => {
+            let temp = res.map(r => {
+                return {
+                    display:r.display,
+                    size:r.code
+                }
+            })
+            setSize(temp)
+            dispatch(setSizesRedux(temp))
+        })
+        productServices.getProducts().then((res) => {
+
             dispatch(setProducts(res.products))
-            dispatch(setTotalPage(res.total_pages))
+            dispatch(setTotalPage(parseInt(res.total_pages/12)+1))
             dispatch(setLoading(false))
         })
         // dispatch(setLoading(false))
@@ -43,7 +70,7 @@ const Catalog = (props) => {
             link: "/catalog"
         }]))
         window.scroll(0, 0)
-    }, [page])
+    }, [])
     const filterSelect = (type, checked, item) => {
         const filterData = {
             type: type,
@@ -56,31 +83,40 @@ const Catalog = (props) => {
 
     const updateProducts = useCallback(
         () => {
-            let temp = productList
+            let temp = productRedux
             if (filterState.name.length > 0) {
-                temp = temp.filter(e => e.title.includes(filterState.name))
+                temp = temp.filter(e => e.name.includes(filterState.name))
             }
             if (filterState.category.length > 0) {
+                console.log(filterState)
 
-                temp = temp.filter(e => filterState.category.includes(e.categorySlug))
+                temp = temp.filter(e => {
+                    // console.log(e.categories[0])
+                    for(let cate of e.categories){
+                        if(filterState.category.includes(cate)) return true
+                    }
+                    return false
+                })
             }
 
             if (filterState.color.length > 0) {
                 temp = temp.filter(e => {
-                    const check = e.colors.find(color => filterState.color.includes(color))
+                    const check = e.colors_type.find(color => filterState.color.includes(color))
                     return check !== undefined
                 })
             }
 
             if (filterState.size.length > 0) {
                 temp = temp.filter(e => {
-                    const check = e.size.find(size => filterState.size.includes(size))
+                    const check = e.sizes_type.find(size => filterState.size.includes(size))
                     return check !== undefined
                 })
             }
-            // setProducts(temp)
+            // console.log(temp)
+            setProductList(temp)
+
         },
-        [filterState, productList],
+        [filterState],
     )
 
     useEffect(() => {
@@ -93,9 +129,6 @@ const Catalog = (props) => {
         filterRef.current.classList.toggle('active')
         setOpen(!open)
     }
-    useEffect(() => {
-
-    }, [])
     return (
         <Helmet title="Sản phẩm">
             <Breadcrumb />
@@ -178,12 +211,12 @@ const Catalog = (props) => {
                         </div>
                     }
 
-                    {productRedux.length > 0 && isLoading == false &&
-
-                        <ProductList data={productRedux} />
+                    {productList.length > 0 && isLoading == false &&
+                        <MyInfinityList data ={productList} />
+                        // <ProductList data={productList} />
                     }
-                    <MyPagination page = {page?Number(page):1} setPage = {setPage} 
-                    />
+                    {/* <MyPagination page={page ? Number(page) : 1} setPage={setPage} setProductList = {setProductList}
+                    /> */}
                 </div>
             </div>
         </Helmet>

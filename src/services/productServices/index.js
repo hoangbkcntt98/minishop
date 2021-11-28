@@ -15,6 +15,11 @@ const productServices = {
         let rs = await services.get('products/find/'+params);
         console.log(rs)
         return rs.data.content        // return rs.data.data
+    },
+    async getProductAttributes(params){
+        let rs = await services.get('/products/attributes',params)
+        console.log('atributes',rs)
+        return rs.data.content
     }
   
 }   
