@@ -21,8 +21,12 @@
                     font-size: 15px;
                     // color:black;
                     font-weight: 100px;
+                    &:hover{
+                        text-decoration: underline !important;
+                    }
+                    
                 }
-
+                
                 @include flex(center,left);
                 width: 70%;
             }
@@ -50,7 +54,11 @@
         &__item{
             >a{
                 cursor: pointer;
+                &:hover{
+                    text-decoration: underline !important;
+                }     
             }
+            
             margin-bottom: 13px;
         }
         &__show {

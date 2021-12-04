@@ -6,7 +6,7 @@ import { updateLinks } from '../../redux/product/ProductSlice'
 const NavLinkItem = (props) => {
     const dispatch = useDispatch()
     const links = useSelector(state => state.product.links)
-    const { open, showDropdown, title,update} = props
+    const { open, showDropdown, title,update,offDrop} = props
     return (
         <React.Fragment>
             <div class="nav-link__item">
@@ -19,10 +19,10 @@ const NavLinkItem = (props) => {
                                 link:'/catalog'
                             }))
                             update('INDEX',title)
-                            }} title={title.root}><i class="fa fa-caret-right" aria-hidden="true"></i>{title.root}</a>
+                            }} title={title.root}><i class="fa fa-caret-right" aria-hidden="true"></i>{offDrop?<h4>{title.root}</h4>:title.root}</a>
                     </div>
 
-                    {title.child.length>0&&<div class="nav-link__item__root__dropdown__btn">
+                    {title.child.length>0&&!offDrop&&<div class="nav-link__item__root__dropdown__btn">
                         <i class="bx bx-chevron-down" onClick={() =>showDropdown(title.root)}></i>
                     </div>}
                 </div>

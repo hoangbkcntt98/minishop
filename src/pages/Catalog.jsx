@@ -36,7 +36,7 @@ const Catalog = (props) => {
         setProductList(productRedux)
     },[productRedux])
     React.useEffect(() => {
-        alert(process.env.NODE_ENV)
+        // alert(process.env.NODE_ENV)
         dispatch(setLoading(true));
         productServices.getProductAttributes({type:"COLOR"}).then(res =>{
             // console.log(res)

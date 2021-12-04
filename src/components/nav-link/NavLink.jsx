@@ -8,7 +8,18 @@ import productServices from '../../services/productServices';
 const NavLink = (props) => {
     const dispatch = useDispatch()
     const [index, setIndexs] = useState([])
-
+    const formatIndex = (index) =>{
+        if(index.length==0) return index
+        let other = index.find(item => item.display.toUpperCase().includes("KHÁC"))
+        if(other ){
+            console.log('other',other)
+            index = index.filter(item => !item.display .toUpperCase().includes("KHÁC"))
+            index.push(other)
+            console.log('child formated',index)
+        }
+      
+        return index
+    }
     React.useEffect(() => {
         productServices.getProductAttributes({ type: "CATE" }).then(res => {
             let initIndex = [
@@ -56,7 +67,8 @@ const NavLink = (props) => {
                         categorySlug: val.code
                     }
                 })
-                item.child = child
+                item.child = formatIndex(child)
+                console.log('child',child)
                 return item
             })
             setIndexs(initIndex)

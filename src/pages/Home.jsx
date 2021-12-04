@@ -14,17 +14,15 @@ import heroSliderData from '../assets/fake-data/hero-slider'
 import banner from '../assets/images/banner.png'
 import ad1 from '../assets/images/banner1.jpg'
 import Slider from '../components/slider/Slider'
-
+import {useEffect,useState} from 'react'
+import { useSelector } from 'react-redux'
 const Home = () => {
+    const productRedux = useSelector((state) => state.product.products)
+    useEffect(() => {
+       console.log(productRedux)
+    }, [productRedux])
     return (
         <Helmet title="Trang chủ">
-            {/* hero slider */}
-            {/* <HeroSlider
-                data={heroSliderData}
-                control={true}
-                auto={false}
-                timeOut={5000}
-            /> */}
             <Section>
                 <div className="banner">
                     <Slider />
