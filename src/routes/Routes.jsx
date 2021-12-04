@@ -8,11 +8,9 @@ import Cart from '../pages/Cart'
 import Product from '../pages/Product'
 import Login from '../pages/Login'
 import Signup from '../pages/Signup'
-import { useDispatch } from 'react-redux'
-import productServices from '../services/productServices'
-import { setCategories,setProducts, product, setLinks, setLoading, setTotalPage, setProduct, setColorsRedux, setSizesRedux } from '../redux/product/ProductSlice'
+
 const Routes = () => {
-    const dispatch = useDispatch()
+   
     
     // useEffect(()=>{
     //     const formatIndex = (index) =>{
