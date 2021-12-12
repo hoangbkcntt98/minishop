@@ -31,7 +31,7 @@ const ProductView = props => {
         description: ""
     }
 
-    const [previewImg, setPreviewImg] = useState(product.image01)
+    const [previewImg, setPreviewImg] = useState(product.variations[0].images[0])
 
     const [descriptionExpand, setDescriptionExpand] = useState(false)
 
@@ -78,7 +78,7 @@ const ProductView = props => {
     }
 
     useEffect(() => {
-        setPreviewImg(product.image ? product.image : noImages)
+        setPreviewImg(product.variations[0]?.images[0] ? product.variations[0].images[0] : noImages)
         setQuantity(1)
         setColor(undefined)
         setSize(undefined)
