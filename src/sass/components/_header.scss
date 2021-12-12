@@ -297,9 +297,9 @@
         @include mobile {
             display: none;
         }
-
-        padding-left: 4rem;
-        padding-right: 4rem;
+        @include flex(top,left);
+        // padding-left: 4rem;
+        // padding-right: 4rem;
         &__icon {
             // display: 'flex';
             align-items: "center";
@@ -332,11 +332,11 @@
                 }
             }
             padding: 1em;
+            // width: 50%;
             width: 50%;
             height: 100%;
-            float: right;
-            @include flex(top, right);
-            // @include flex(right, space-between);
+            display: flex;
+            flex-direction: row-reverse;
         }
     }
     &__main {
