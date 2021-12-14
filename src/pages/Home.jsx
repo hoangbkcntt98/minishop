@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Helmet from '../components/helmet/Helmet'
@@ -14,11 +14,35 @@ import heroSliderData from '../assets/fake-data/hero-slider'
 import banner from '../assets/images/banner.png'
 import ad1 from '../assets/images/banner1.jpg'
 import Slider from '../components/slider/Slider'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { isEmpty } from '../utils/utils'
+import productServices from '../services/productServices'
+import { setProducts, setTotalPage } from '../redux/product/ProductSlice'
+import MyProductCard from '../components/card/MyProductCard'
+const noImages = require('../assets/images/no-images.png').default;
+const skirtImage = require('../assets/images/skirt.png').default;
 const Home = () => {
+    const state = useSelector((state) => state.product)
+    const dispatch = useDispatch();
+    const [intro, setIntro] = useState({
+        pan: [],
+        set: [],
+        skirt: [],
+        bestSeller: [],
+        promotion: []
+    })
+    const { pan, set, skirt, bestSeller, promotion } = intro
+    React.useEffect(() => {
+        console.log(state.products)
+        setIntro({
+            ...state,
+            bestSeller: state.products.slice(-10),
+            skirt: state.products.filter(item => item.categories.includes("V"))
+        })
+    }, [state.products])
     return (
         <Helmet title="Trang chủ">
-                
+
             <Section>
                 <div className="banner">
                     <Slider />
@@ -55,26 +79,26 @@ const Home = () => {
             {/* end policy section */}
 
             {/* best selling section */}
-            <Section>
+            <Section extendClass="best_seller section__shadow">
                 <SectionTitle>
-                    top sản phẩm bán chạy trong tuần
+                    <i className='bx bxs-hot'></i>top sản phẩm bán chạy
                 </SectionTitle>
                 <SectionBody>
                     <Grid
-                        col={4}
+                        col={5}
                         mdCol={2}
                         smCol={1}
                         gap={20}
                     >
                         {
-                            productData.getProducts(4).map((item, index) => (
-                                <ProductCard
+
+                            bestSeller.length > 0 && bestSeller.map((item, index) => (
+                                <MyProductCard
                                     key={index}
-                                    img01={item.image01}
-                                    img02={item.image02}
-                                    name={item.title}
-                                    price={Number(item.price)}
-                                    slug={item.slug}
+                                    image={item.variations[0].images[0] ? item.variations[0].images[0] : noImages}
+                                    name={item.name}
+                                    price={Number(item.variations[0].retail_price)}
+                                    slug={item.custom_id}
                                 />
                             ))
                         }
@@ -84,26 +108,26 @@ const Home = () => {
             {/* end best selling section */}
 
             {/* new arrival section */}
-            <Section>
+            <Section extendClass="best_seller section__shadow">
                 <SectionTitle>
-                    sản phẩm mới
+                <img src={skirtImage} width="20" />Váy, Chân váy
                 </SectionTitle>
                 <SectionBody>
                     <Grid
-                        col={4}
+                        col={5}
                         mdCol={2}
                         smCol={1}
                         gap={20}
                     >
                         {
-                            productData.getProducts(8).map((item, index) => (
-                                <ProductCard
+
+                            skirt.length > 0 && skirt.map((item, index) => (
+                                <MyProductCard
                                     key={index}
-                                    img01={item.image01}
-                                    img02={item.image02}
-                                    name={item.title}
-                                    price={Number(item.price)}
-                                    slug={item.slug}
+                                    image={item.variations[0].images[0] ? item.variations[0].images[0] : noImages}
+                                    name={item.name}
+                                    price={Number(item.variations[0].retail_price)}
+                                    slug={item.custom_id}
                                 />
                             ))
                         }

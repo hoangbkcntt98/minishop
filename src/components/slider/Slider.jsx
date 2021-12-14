@@ -24,6 +24,7 @@ import SwiperCore, {
 import { set } from '../../redux/product-modal/productModalSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import numberWithCommas from "../../utils/numberWithCommas";
+import { sortByQuantity } from "../../utils/sort";
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -39,9 +40,7 @@ export default function Slider() {
   }, [productRedux])
   const [data, setData] = useState();
   const SliderItem = (props) => {
-    useEffect(() => {
-      console.log(props.data)
-    }, [])
+
     return (
       <div className="slider-item">
 

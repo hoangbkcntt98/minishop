@@ -103,7 +103,6 @@ const Routes = () => {
 
             dispatch(setProducts(res.products))
             dispatch(setTotalPage(parseInt(res.total_pages/12)+1))
-            // dispatch(setLoading(false))
         })
     },[])
     return (

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Section = props => {
     return (
-        <div className="section">
+        <div className={props.extendClass?"section "+props.extendClass:"section"}>
             {props.children}
         </div>
     )

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import productServices from '../../services/productServices'
+import { sortByQuantity } from '../../utils/sort'
 const initialState = {
     filter: {
         category: [],
@@ -43,7 +44,8 @@ export const product = createSlice({
             state.total_pages = action.payload
         },
         setProducts:(state,action) =>{
-            state.products = action.payload
+            // state.products = action.payload
+            state.products = sortByQuantity(action.payload)
         },
         setProduct:(state,action) =>{
             state.product = state.products.find(item => item.custom_id ==action.payload)

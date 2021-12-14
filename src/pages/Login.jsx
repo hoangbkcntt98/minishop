@@ -48,6 +48,11 @@ export default function Login() {
         console.log(res)
        
     };
+    const loginWithFb = async () =>{
+        let res = await userServices.loginWithFb();
+        console.log(res)
+        // alert(res.data)
+    }
     const {
         register,
         control,
@@ -86,10 +91,10 @@ export default function Login() {
                             Đăng Nhập Tài Khoản
                         </Typography>
 
-                        <Box component="form"  noValidate sx={{ mt: 1 }} style = {{display:'block',width:'90%'}}>
+                        <Box   noValidate sx={{ mt: 1 }} style = {{display:'block',width:'90%'}}>
                             <hr className="login__hr-title" />
                             <div className="login__social">
-                                <button className="login__social__button login__social__button__fb">
+                                <button onClick = {loginWithFb}  className="login__social__button login__social__button__fb">
                                     <i className="bx bxl-facebook"></i>
                                     <div className="login__social__button__divider">
                                     </div>

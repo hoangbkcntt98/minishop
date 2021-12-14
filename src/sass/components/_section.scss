@@ -1,5 +1,5 @@
 .section {
-    margin-bottom: 80px;
+    margin-bottom: 40px;
     // display: block;
     // z-index: 88;
     // position: relative;
@@ -9,7 +9,13 @@
 
     &__title {
         font-size: 2rem;
+        // background-color: $main-color;
+        // color:$main-color;
         text-transform: capitalize;
         text-align: center;
+       
+    }
+    &__shadow{
+            box-shadow: $box-shadow;
     }
 }

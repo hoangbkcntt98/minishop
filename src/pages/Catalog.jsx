@@ -29,6 +29,7 @@ const Catalog = (props) => {
     const isLoading = useSelector(state => state.product.isLoading)
     const [colors,setColors] = useState([])
     const [size,setSize] = useState([])
+    const state = useSelector((state) => state.product)
     const dispatch = useDispatch()
     // const productList = productData.getAllProducts()
     const [page, setPage] = React.useState(queryString.parse(props.location.search).page);
@@ -36,35 +37,55 @@ const Catalog = (props) => {
         setProductList(productRedux)
     },[productRedux])
     React.useEffect(() => {
-        // alert(process.env.NODE_ENV)
         dispatch(setLoading(true));
-        productServices.getProductAttributes({type:"COLOR"}).then(res =>{
-            // console.log(res)
-            let temp = res.map(r => {
+        if(state.colors&&state.colors.length>0){
+            console.log(state.colors)
+            setColors(state.colors)
+        }else{
+            productServices.getProductAttributes({type:"COLOR"}).then(res =>{
+                // console.log(res)
+                let temp = res.map(r => {
+                    return {
+                        display:r.display,
+                        color:r.code
+                    }
+                })
+                setColors(temp)
+                dispatch(setColorsRedux(temp))
+            })
+        }
+        if(state.sizes&&state.sizes.length>0){
+            let sizeTemp = state.sizes.map(s => {
                 return {
-                    display:r.display,
-                    color:r.code
+                    display:s.display,
+                    size:s.code
                 }
             })
-            setColors(temp)
-            dispatch(setColorsRedux(temp))
-        })
-        productServices.getProductAttributes({type:"SIZE"}).then(res => {
-            let temp = res.map(r => {
-                return {
-                    display:r.display,
-                    size:r.code
-                }
+            setSize(sizeTemp)
+        }else{
+            productServices.getProductAttributes({type:"SIZE"}).then(res => {
+                let temp = res.map(r => {
+                    return {
+                        display:r.display,
+                        size:r.code
+                    }
+                })
+                setSize(temp)
+                dispatch(setSizesRedux(temp))
             })
-            setSize(temp)
-            dispatch(setSizesRedux(temp))
-        })
-        productServices.getProducts().then((res) => {
+        }
+        if(productRedux.length==0){
+            productServices.getProducts().then((res) => {
 
-            dispatch(setProducts(res.products))
-            dispatch(setTotalPage(parseInt(res.total_pages/12)+1))
-            dispatch(setLoading(false))
-        })
+                dispatch(setProducts(res.products))
+                dispatch(setTotalPage(parseInt(res.total_pages/12)+1))
+                dispatch(setLoading(false))
+            })
+        }else{
+            // alert(productRedux.length)
+            dispatch(setLoading(false));
+        }
+      
         // dispatch(setLoading(false))
         dispatch(setLinks([{
             display: "Sản phẩm",

@@ -16,6 +16,12 @@ const userServices = {
         let res = await services.post('register',null,registerData);
         // console.log(res)
         return formatRespone(res)
+    },
+    async loginWithFb(){
+        let url = 'https://minishop-node-server.herokuapp.com/user/auth/facebook';
+        let res = await services.get(url)
+        console.log(res)
+        return res;
     }
 }
 export default userServices;

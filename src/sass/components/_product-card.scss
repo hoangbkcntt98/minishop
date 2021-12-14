@@ -38,7 +38,7 @@
         padding-top: 100%;
         position: relative;
         overflow: hidden;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
         &__fit{
             width: 90%;
         }
@@ -75,21 +75,28 @@
     }
 
     &__name {
-        margin-bottom: 10px;
-        color: $txt-second-color;
+
+        color: #333;
         font-size: 1.25rem;
-        font-weight: normal;
+        font-weight: 900;
+        overflow: hidden;
+        height: 40px;
+        display: block;
+        text-overflow: ellipsis;
+        // text-align: right;
+        // padding: 1em;
     }
 
     &__price {
-        color: $txt-main-color;
-        font-size: 1.5rem;
+        color: $main-color;
+        font-size: 1.25rem;
         font-weight: 600;
         margin-bottom: 10px;
 
         &__old {
             color: $txt-second-color;
-            margin-left: 20px;
+            font-size: 1rem;
+            margin-left: 10px;
             font-weight: 300;
         }
     }
