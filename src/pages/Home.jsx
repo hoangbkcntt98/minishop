@@ -19,11 +19,13 @@ import { isEmpty } from '../utils/utils'
 import productServices from '../services/productServices'
 import { setProducts, setTotalPage } from '../redux/product/ProductSlice'
 import MyProductCard from '../components/card/MyProductCard'
+import userServices from '../services/userServices'
 const noImages = require('../assets/images/no-images.png').default;
 const skirtImage = require('../assets/images/skirt.png').default;
 const Home = () => {
     const state = useSelector((state) => state.product)
     const dispatch = useDispatch();
+    const [user,setUser] = useState();
     const [intro, setIntro] = useState({
         pan: [],
         set: [],
@@ -32,6 +34,7 @@ const Home = () => {
         promotion: []
     })
     const { pan, set, skirt, bestSeller, promotion } = intro
+    
     React.useEffect(() => {
         console.log(state.products)
         setIntro({

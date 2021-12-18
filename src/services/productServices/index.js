@@ -7,18 +7,18 @@ const productServices = {
     async getProducts(params){
 
         let rs = await services.get('products',params);
-        console.log(rs)
+        //console.log(rs)
         return rs.data.content
         // return rs.data.data
     },
     async getProduct(params){
         let rs = await services.get('products/find/'+params);
-        console.log(rs)
+        //console.log(rs)
         return rs.data.content        // return rs.data.data
     },
     async getProductAttributes(params){
         let rs = await services.get('/products/attributes',params)
-        console.log('atributes',rs)
+        //console.log('atributes',rs)
         return rs.data.content
     }
   

@@ -1,6 +1,11 @@
 import services from "../APIService";
 import { formatRespone } from "../../utils/format";
 const userServices = {
+    async fetchUser(){
+        let rs = await services.get('user/auth/google/success')
+        console.log(rs)
+        return rs
+    },
     async getUser(userId){
         let rs = await services.get('users',userId);
         // console.log(rs)
@@ -8,14 +13,11 @@ const userServices = {
     },
     async login(loginData){
         let res = await services.post('login',null,loginData);
-        // console.log(res)
-        
         return formatRespone(res)
     },
     async signup(registerData){
-        let res = await services.post('register',null,registerData);
-        // console.log(res)
-        return formatRespone(res)
+        let res = await services.post('user/signup',null,registerData);
+        return res;
     },
     async loginWithFb(){
         let url = 'https://minishop-node-server.herokuapp.com/user/auth/facebook';

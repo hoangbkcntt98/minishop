@@ -50,20 +50,20 @@ export default function Signup() {
     const onSubmit = async (formData) => {
         let res = await userServices.signup(formData);
         console.log(res)
-        if(checkStatus(res?.status)){
-            success(res.message)
-            let token =res.data.token.accessToken
-            let expires = new Date(res.data.token.token.expires_at)
-            console.log(expires)
-            CookieService.set('token',token,{
-                path:'/',
-                expires: expires
-                // add sercure while deploy 
-            })
-            console.log(CookieService.getAll())
-        }else{
-            error(res.message)
-        }
+        // if(checkStatus(res?.status)){
+        //     success(res.message)
+        //     let token =res.data.token.accessToken
+        //     let expires = new Date(res.data.token.token.expires_at)
+        //     console.log(expires)
+        //     CookieService.set('token',token,{
+        //         path:'/',
+        //         expires: expires
+        //         // add sercure while deploy 
+        //     })
+        //     console.log(CookieService.getAll())
+        // }else{
+        //     error(res.message)
+        // }
         
     };
 

@@ -61,6 +61,13 @@ export default function Login() {
     } = useForm({
         resolver: yupResolver(loginValidationSchema)
     });
+    React.useEffect(() =>{
+        const fetchUser = async() =>{
+            let data =  await userServices.fetchUser();
+            console.log(data)
+        }
+        fetchUser()
+    },[])
     React.useEffect(() => {
         dispatch(setLinks([{
             display: "Dang nhap",
@@ -94,22 +101,20 @@ export default function Login() {
                         <Box   noValidate sx={{ mt: 1 }} style = {{display:'block',width:'90%'}}>
                             <hr className="login__hr-title" />
                             <div className="login__social">
-                                <button onClick = {loginWithFb}  className="login__social__button login__social__button__fb">
+                                <a href = "http://localhost:5000/user/auth/google"  className="login__social__button login__social__button__fb">
                                     <i className="bx bxl-facebook"></i>
                                     <div className="login__social__button__divider">
                                     </div>
                                     <div className="login__social__button__text">
                                         Facebook
                                     </div>
-
-
-                                </button>
-                                <button className="login__social__button login__social__button__gg">
+                                </a>
+                                <a href = "http://localhost:5000/user/auth/google" className="login__social__button login__social__button__gg">
                                     <i className="bx bxl-google-plus"></i>
                                     <div className="login__social__button__divider">
                                     </div>
                                     <div className="login__social__button__text">Google</div>
-                                </button>
+                                </a>
                             </div>
                             <TextField
                                 margin="normal"
